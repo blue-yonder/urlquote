@@ -1,6 +1,6 @@
 [package]
 name = "urlquote"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Markus Klein <markus.klein@blue-yonder.com>"]
 publish = false
 
