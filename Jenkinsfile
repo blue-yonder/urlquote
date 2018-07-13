@@ -4,14 +4,13 @@ node("Debian_9_internet"){
         step([$class: 'StashNotifier'])
         stage ("Setup environment"){
             sh '''#!/bin/bash -xe
-                python3 -m venv /tmp/venv
+                virtualenv --python=python3.6 /tmp/venv
                 source /tmp/venv/bin/activate
             '''
         }
         stage("Build wheel"){
             sh '''#!/bin/bash -ex
                 source /tmp/venv/bin/activate
-                cd python
                 python setup.py sdist bdist_wheel
             '''
         }

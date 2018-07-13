@@ -16,17 +16,17 @@ def build_native(spec):
 
 setup(
     name='urlquote',
-    version='0.1.0',
     packages=['urlquote'],
     zip_safe=False,
     platforms='any',
-    setup_requires=['milksnake'],
+    setup_requires=['milksnake', 'wheel', 'setuptools_scm'],
     install_requires=['milksnake'],
+    use_scm_version=True,
     # url='https://github.com/mypackage.git',
     milksnake_tasks=[
         build_native
     ],
     author='Markus Klein',
     author_email='markus.klein@blue-yonder.com',
-    description='fast masking and unmasking of urls',
+    description='Fast masking and unmasking of urls.',
 )
