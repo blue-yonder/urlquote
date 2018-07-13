@@ -22,7 +22,7 @@ setup(
     setup_requires=['milksnake', 'setuptools_scm'],
     install_requires=['milksnake'],
     use_scm_version=True,
-    url='https://code.blue-yonder.org/projects/LABS/repos/urlencode/browse',
+    url='https://code.blue-yonder.org/projects/LABS/repos/urlquote/browse',
     milksnake_tasks=[
         build_native
     ],
