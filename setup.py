@@ -19,7 +19,7 @@ setup(
     packages=['urlquote'],
     zip_safe=False,
     platforms='any',
-    setup_requires=['milksnake', 'wheel', 'setuptools_scm'],
+    setup_requires=['milksnake', 'setuptools_scm'],
     install_requires=['milksnake'],
     use_scm_version=True,
     # url='https://github.com/mypackage.git',
