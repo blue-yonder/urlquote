@@ -1,12 +1,19 @@
-#Python
+# Python
 **/__pycache__/
 **/*.pyc
 *.egg-info
 /.pytest_cache/
+/.eggs/
+/build/
 
+# Build artifacts
+/urlquote/_native__ffi.py
+/urlquote/_native__lib.so
+/urlquote/_native.py
 
-#Python environment
+# Python environment
 /venv3/
+/venv2/
 
 # Visual Studio Code
 /.vscode/
