@@ -31,14 +31,15 @@ node("Debian_9_internet"){
         if (env.BRANCH_NAME == "master") { 
             stage ('upload') {
                 withCredentials([usernamePassword(
-                    credentialsId: '22e4312e-dc80-477a-8ca7-5ee68cd6db91',
+                    credentialsId: 'devpi_engineering_credentials',
                     passwordVariable: 'BY_DEVPI_PASSWORD',
-                    usernameVariable: 'BY_DEVPI_USER')]) {
-                sh '''#!/bin/bash -xe
-                . /tmp/venv/bin/activate
-                pip install by-devpi-client
-                python -m by.devpi_client upload -u ${BY_DEVPI_USER} dist/*.whl
-                '''
+                    usernameVariable: 'BY_DEVPI_USER'
+                )]) {
+                    sh '''#!/bin/bash -xe
+                    . /tmp/venv/bin/activate
+                    pip install by-devpi-client
+                    python -m by.devpi_client upload -u ${BY_DEVPI_USER} dist/*.whl
+                    '''
                 }
             }
         }
