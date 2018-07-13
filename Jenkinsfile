@@ -6,6 +6,7 @@ node("Debian_9_internet"){
             sh '''#!/bin/bash -xe
                 virtualenv --python=python3.6 /tmp/venv
                 source /tmp/venv/bin/activate
+                pip install pytest
             '''
         }
         stage("Build wheel"){
