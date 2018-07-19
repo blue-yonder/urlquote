@@ -9,7 +9,7 @@ if __name__ == "__main__":
     print("Quote")
     setup = "from urlquote import quote, unquote\ninput=u'/El Niño/'.encode('utf-8')"
     expression = "quote(input)"
-    repetitions = 100
+    repetitions = 100000
     duration = timeit.timeit(expression, setup=setup, number = repetitions)
     print("Non trivial case:")
     print("Total duration: ", duration, "Average Duration: ", duration / repetitions)
