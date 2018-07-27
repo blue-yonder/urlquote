@@ -50,3 +50,10 @@ This library is a thin wrapper around the
 [`percent-encoding`](https://crates.io/crates/percent-encoding) rust crate. It exposes part of its
 functionality to python via a C-Interface using
 [`milksnake`](https://github.com/getsentry/milksnake).
+
+Support
+-------
+
+This tool is provided as is under an MIT license without any warranty or SLA. You are free to use
+it as part for any purpose, but the responsibility for operating it resides with you. We appreciate
+your feedback though. Contributions on GitHub are welcome.
