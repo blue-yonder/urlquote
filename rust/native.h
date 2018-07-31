@@ -26,17 +26,6 @@ uintptr_t quote(const uint8_t *input_buf,
                 uintptr_t output_len);
 
 /*
- * Returns the quoted length of the provided utf-8 encoded input string.
- *
- * # Parameters
- *
- * * input_buf: Non Null pointer to utf-8 encoded character sequence to be quoted. A terminating
- *              zero is not required.
- * * input_len: Number of bytes in input_buf (Without terminating zero).
- */
-uintptr_t quoted_len(const uint8_t *input_buf, uintptr_t input_len);
-
-/*
  * Fill the provided output buffer with the unquoted string.
  *
  * # Parameters
@@ -46,22 +35,15 @@ uintptr_t quoted_len(const uint8_t *input_buf, uintptr_t input_len);
  * * input_len: Number of bytes in input_buf (Without terminating zero).
  * * output_buf: Non Null pointer to buffer which will hold the utf-8 encoded output string. The
  *               buffer should be big enough to hold the unquoted string. This function is not
- *               going to write beyond the bounds specified by `output_len`. This makes it important
- *               to call `quoted_len` before allocating the buffer.
+ *               going to write beyond the bounds specified by `output_len`.
  * * output_len: Length of the output buffer.
- */
-void unquote(const uint8_t *input_buf,
-             uintptr_t input_len,
-             uint8_t *output_buf,
-             uintptr_t output_len);
-
-/*
- * Returns the unquoted length of the provided utf-8 encoded and percent quoted input string.
  *
- * # Parameters
+ * # Return value
  *
- * * input_buf: Non Null pointer to utf-8 encoded character sequence to be unquoted. A terminating
- *              zero is not required.
- * * input_len: Number of bytes in input_buf (Without terminating zero).
+ * The number of bytes requiered to hold the unquoted string. By comparing `output_len` with the
+ * returned value one can determine, if the provided output buffer has been sufficient.
  */
-uintptr_t unquoted_len(const uint8_t *input_buf, uintptr_t input_len);
+uintptr_t unquote(const uint8_t *input_buf,
+                  uintptr_t input_len,
+                  uint8_t *output_buf,
+                  uintptr_t output_len);
