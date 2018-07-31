@@ -28,5 +28,5 @@ setup(
     ],
     author='Markus Klein',
     author_email='markus.klein@blue-yonder.com',
-    description='Fast masking and unmasking of urls.',
+    description='Fast quoting and unquoting of urls.',
 )
