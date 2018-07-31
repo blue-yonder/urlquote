@@ -2,22 +2,25 @@
 from urlquote._native import ffi, lib
 import six
 
+# This buffer is passed to the C-Interface in order to obtain the quoted string. It will be
+# reallocated automatically by `_native_quote`, if its size should not be large enough. It is ok to
+# reset this buffer to a smaller value, but it always needs to be a valid buffer.
+buffer = ffi.new('uint8_t[]', 1)
+
 def _native_quote(value):
     """
     Urlencodes the given bytes
     """
-    encoded_len = lib.quoted_len(value, len(value))
-    if encoded_len == len(value):
-        # Nothing to encode, let's save the allocation and return the original value
-        return value
-    else:
-        # Quoting the string is not the identity operation, so we need to allocate a new string. We
-        # do this in python, so we don't need to explain to the gc how to deallocate it, once it
-        # goes out of scope.
-        buffer = ffi.new('uint8_t[]', encoded_len)
-        # Let's fill the buffer with the quoted string
-        lib.quote(value, len(value), buffer, encoded_len)
-        return ffi.string(buffer)
+    global buffer
+    buffer_len = len(buffer)
+    quoted_len = lib.quote(value, len(value), buffer, buffer_len)
+    if quoted_len > buffer_len:
+        # Our buffer has not been big enough to hold the quoted url. Let's allocate a buffer large
+        # enough and try again.
+        buffer = ffi.new('uint8_t[]', quoted_len)
+        lib.quote(value, len(value), buffer, quoted_len)
+
+    return ffi.string(buffer, quoted_len)
 
 def _native_unquote(value):
     """
@@ -32,7 +35,7 @@ def _native_unquote(value):
         # We do this in python, so we don't need to explain to the gc how to deallocate it, once it
         # goes out of scope.
         buffer = ffi.new('uint8_t[]', decoded_len)
-        # Let's fill the buffer with the quoted string
+        # Let's fill the buffer with the unquoted string
         lib.unquote(value, len(value), buffer, decoded_len)
         return ffi.string(buffer)
 

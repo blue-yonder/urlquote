@@ -29,49 +29,6 @@ fn encode_el_nino_to_string(b: &mut Bencher) {
 }
 
 #[bench]
-fn encode_el_nino_one_alloc(b: &mut Bencher) {
-    b.iter(|| {
-        let input = black_box("/El Niño/");
-        let encoded = utf8_percent_encode(input, DEFAULT_ENCODE_SET);
-        let encoded_size = encoded.clone().map(str::len).sum();
-        let mut buffer = String::with_capacity(encoded_size);
-        for slice in encoded {
-            buffer += slice
-        }
-    })
-}
-
-#[bench]
-fn encode_4el_nino_collect(b: &mut Bencher) {
-    b.iter(|| {
-        utf8_percent_encode(
-            black_box("/El Niño/El Niño/El Niño/El Niño/"),
-            DEFAULT_ENCODE_SET,
-        ).collect::<String>()
-    })
-}
-
-#[bench]
-fn encode_4el_nino_one_alloc(b: &mut Bencher) {
-    b.iter(|| {
-        let input = black_box("/El Niño/El Niño/El Niño/El Niño/");
-        let encoded = utf8_percent_encode(input, DEFAULT_ENCODE_SET);
-        let encoded_size = encoded.clone().map(str::len).sum();
-        let mut buffer = String::with_capacity(encoded_size);
-        for slice in encoded {
-            buffer += slice
-        }
-    })
-}
-
-#[bench]
-fn encode_el_nino_collect_bytes(b: &mut Bencher) {
-    b.iter(|| {
-        percent_encode(black_box("/El Niño/").as_bytes(), DEFAULT_ENCODE_SET).collect::<String>()
-    })
-}
-
-#[bench]
 fn trivial_case(b: &mut Bencher) {
     b.iter(|| {
         percent_encode(
@@ -84,13 +41,29 @@ fn trivial_case(b: &mut Bencher) {
 #[bench]
 fn quoted_len_el_nino(b: &mut Bencher) {
     let input = black_box("/El Niño/");
-    b.iter(|| unsafe { quoted_len(input.as_ptr(), input.len()) })
+    let mut buffer = vec![0; 1];
+    b.iter(|| unsafe {
+        quote(
+            input.as_ptr(),
+            input.len(),
+            buffer.as_mut_ptr(),
+            buffer.len(),
+        )
+    })
 }
 
 #[bench]
 fn quoted_len_lorem_ipsum(b: &mut Bencher) {
     let input = black_box(LOREM_IPSUM);
-    b.iter(|| unsafe { quoted_len(input.as_ptr(), input.len()) })
+    let mut buffer = vec![0; 1];
+    b.iter(|| unsafe {
+        quote(
+            input.as_ptr(),
+            input.len(),
+            buffer.as_mut_ptr(),
+            buffer.len(),
+        )
+    })
 }
 
 #[bench]
