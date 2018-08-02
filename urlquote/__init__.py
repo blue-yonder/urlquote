@@ -40,8 +40,7 @@ def _native_unquote(value):
 
 def quote(value):
     """
-    Performs string encoding and urlencodes the given string. Works faster with bytes. Always
-    returns utf-8 encoded bytes
+    Performs string encoding and urlencodes the given string. Always returns utf-8 encoded bytes.
     """
     if not isinstance(value, six.binary_type):
         if not isinstance(value, six.text_type):
