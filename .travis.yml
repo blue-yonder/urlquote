@@ -7,10 +7,9 @@ python:
 
 install:
   - pip install -r requirements.txt
-  - pip bdist_wheel 
 
 script:
-  - pip install -e .
+  - pip install .
   - pytest test.py
 
 notifications:
