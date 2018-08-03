@@ -9,11 +9,6 @@ matrix:
     - language: generic
       python: 3.6
 
-python:
-  - "2.7"
-  - "3.5"
-  - "3.6"
-
 install:
   - curl curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
   - export PATH="$HOME/.cargo/bin:$PATH"
