@@ -22,11 +22,11 @@ setup(
     setup_requires=['milksnake', 'setuptools_scm'],
     install_requires=['milksnake'],
     use_scm_version=True,
-    url='https://code.blue-yonder.org/projects/LABS/repos/urlquote/browse',
+    url='https://github.com/blue-yonder/urlquote',
     milksnake_tasks=[
         build_native
     ],
-    author='Markus Klein',
-    author_email='markus.klein@blue-yonder.com',
+    author='Blue Yonder',
+    author_email='oss@blue-yonder.com',
     description='Fast quoting and unquoting of urls.',
 )
