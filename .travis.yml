@@ -7,8 +7,11 @@ python:
 
 install:
   - pip install -r requirements.txt
+  - pip bdist_wheel 
 
 script:
+  - python setup.py sdist bdist_wheel
+  - pip install dist/*tar.gz
   - pytest test.py
 
 notifications:
