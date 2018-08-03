@@ -13,9 +13,12 @@ install:
   - curl curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
   - export PATH="$HOME/.cargo/bin:$PATH"
   - rustc -V
+  - pip install --upgrade pip
   - pip install -r requirements.txt
+  - pip install pytest
 
 script:
+  
   - pip install .
   - pytest test.py
 
