@@ -6,7 +6,7 @@ python:
   - "3.6"
 
 install:
-  - pip install -r requirements.text
+  - pip install -r requirements.txt
 
 script:
   - pytest test.py
