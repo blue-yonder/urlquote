@@ -9,10 +9,20 @@ matrix:
     - language: python
       python: 3.6
 
+    - language: generic:
+      os: osx
+      python: 3.6
+
+before_install:
+  # Install python on osx
+  - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then brew install python36; fi
+
 install:
+  # Install Rust and Cargo
   - curl curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
   - export PATH="$HOME/.cargo/bin:$PATH"
   - rustc -V
+  # Install Requirements
   - pip install -r requirements.txt
 
 script:
