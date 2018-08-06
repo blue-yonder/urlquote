@@ -9,7 +9,7 @@ matrix:
     - language: python
       python: 3.6
 
-    - language: generic:
+    - language: generic
       os: osx
       python: 3.6
 
