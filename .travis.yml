@@ -17,7 +17,7 @@ install:
 
 script:
   
-  - pip install .
+  - python setup.py bdist_wheel
   - pytest test.py
 
 notifications:
