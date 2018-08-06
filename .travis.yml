@@ -28,7 +28,8 @@ script:
   - pip install -e .
   - pytest test.py
 
-  deploy:
+deploy:
+  skip_cleanup: true
   provider: pypi
   user: "BYPyPi"
   parssword:
