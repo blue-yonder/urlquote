@@ -29,10 +29,9 @@ script:
   - pytest test.py
 
 deploy:
-  skip_cleanup: true
   provider: pypi
   user: "BYPyPi"
-  parssword:
+  password:
     secure: "cSLjVTZxa6Z+IKggi+MzQ+nSgXAAxxfbO6YfhcL886IonyS/O+6dxbSG8d6S7xtfi2KFH/WEAj0ksu+3sEMV63Z2JN0GQRLGe+nFg+luz1Dp2/RCTYJwMYaJ1c2h8jVlAHcZdRa6wCqVX9SraJ5zl2wPT7H0cGBvDhg3ONCeLY+aEyEk6hJDLmxBveeVNe9ZxGT7cxD4A1cSMVa7mDHofEoikG6mIHt9wmNlTMiqWlfQ1chOdvkalN25YCj4LqVNcMcrGhgrWCRaimdoFdt/HgS4WYtKCeyllidFsdz6I9rQVcyABFvxQe8q/TE5PL579dr2r7mo4HQhEd42/TOBhntoRkx0e7ZVDf+skL68VtjHYDN2Wg9/D4FEGH1OwcZEF3MXQAFYYX51oYt7/CsM6L1TLTX5g0NEYyuqvB4y/WbX3PPKsf9hTwx6s8F2IIK/ehdPBqmDaYY9+yEA8rIfdf9iUM57eTXAD4xK0pQ7fyapXdGLGDuVSlhsCD0jwFPWA5xCtkhLUPV9IAG5OMPiwwrw96Tf61Q7iXdVmD4/Yne3bKPWO0CVcia+rJRYMal1iCDDUMryq/GoNBbLOVWCaep8BougGJawR/is6vutW+jEA6hu8JOQ+FV1nTDPmJ1M36K0MHKgQl/PEd6Ky9IsK2YIRTtgnQ+z2Bq7J6zbJwI="
   distributions: "sdist bdist_wheel"
   on:
