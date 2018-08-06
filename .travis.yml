@@ -1,42 +1,32 @@
 matrix:
-  include: 
-    - language: python
-      python: 2.7
-
-    - language: python
-      python: 3.5
-
-    - language: python
-      python: 3.6
-
-    - language: generic
-      os: osx
-      python: 3.6
-
+  include:
+  - language: python
+    python: 2.7
+  - language: python
+    python: 3.5
+  - language: python
+    python: 3.6
+  - language: generic
+    os: osx
+    python: 3.6
 install:
-  # Install Rust and Cargo
-  - curl curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
-  - export PATH="$HOME/.cargo/bin:$PATH"
-  - rustc -V
-  # Install Requirements
-  - pip install -r requirements.txt
-  - pip install -r requirements-test.txt
-
+- curl curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
+- export PATH="$HOME/.cargo/bin:$PATH"
+- rustc -V
+- pip install -r requirements.txt
+- pip install -r requirements-test.txt
 script:
-  
-  - python setup.py bdist_wheel
-  - pip install -e .
-  - pytest test.py
-
+- python setup.py bdist_wheel
+- pip install -e .
+- pytest test.py
 deploy:
   skip_cleanup: true
   provider: pypi
-  user: "BYPyPi"
+  user: BYPyPi
   password:
-    secure: "cSLjVTZxa6Z+IKggi+MzQ+nSgXAAxxfbO6YfhcL886IonyS/O+6dxbSG8d6S7xtfi2KFH/WEAj0ksu+3sEMV63Z2JN0GQRLGe+nFg+luz1Dp2/RCTYJwMYaJ1c2h8jVlAHcZdRa6wCqVX9SraJ5zl2wPT7H0cGBvDhg3ONCeLY+aEyEk6hJDLmxBveeVNe9ZxGT7cxD4A1cSMVa7mDHofEoikG6mIHt9wmNlTMiqWlfQ1chOdvkalN25YCj4LqVNcMcrGhgrWCRaimdoFdt/HgS4WYtKCeyllidFsdz6I9rQVcyABFvxQe8q/TE5PL579dr2r7mo4HQhEd42/TOBhntoRkx0e7ZVDf+skL68VtjHYDN2Wg9/D4FEGH1OwcZEF3MXQAFYYX51oYt7/CsM6L1TLTX5g0NEYyuqvB4y/WbX3PPKsf9hTwx6s8F2IIK/ehdPBqmDaYY9+yEA8rIfdf9iUM57eTXAD4xK0pQ7fyapXdGLGDuVSlhsCD0jwFPWA5xCtkhLUPV9IAG5OMPiwwrw96Tf61Q7iXdVmD4/Yne3bKPWO0CVcia+rJRYMal1iCDDUMryq/GoNBbLOVWCaep8BougGJawR/is6vutW+jEA6hu8JOQ+FV1nTDPmJ1M36K0MHKgQl/PEd6Ky9IsK2YIRTtgnQ+z2Bq7J6zbJwI="
-  distributions: "sdist bdist_wheel"
+    secure: V9DBPD+hGz+VpPuI5VXb6jQtHLKZFTTCMwIpkGKbJGXT8nDaTRnE4jn5ahjmnyAKB0tP92y5KsxYhP/Ko/kNZUYnyBSHTIf8m/VuUqZb2Y8o6NyiZfR750UFcWNBpd13e1acNMoJON7tamnEJoyuAlcAigC2YAEwW7biFnCTc7e/owOyb/lOEMP1xz0DE9djVUdPCjhy2INOWXA4vO7SapApLgkAuKbA+JQA7p+MBZNJIZkRhJp+8Zrl7RsX3gvUzNYKgYUe9gF7ZoO4T/+m0zqchlkdndfR7iOvUKcA6tOj9zPEmtu3HzaRACaHaZSDUMsIFkCaKwOFO1eidC7rgwiESa4zn2g/HfufwBIlqlZ1+8BS9tnFWmwPtjoIWuvfPJ3a1fIu+lNHojsv2pNdUz9fZvAj4TJhW9lPboZHu97bTGSJo7HgmHCp0tCiMNwSgxXyErT5u8g5w3aTauv1Jt4lRdp7Vbc5X8xpMJzcOyDZoFpUWo9/vIxZzAlawH6UFQgMejbpycqNrRjfTiC8szh1laAxnw5qBAh5UdWB85D9oJ7DBLOUl0hvD/lpF2rUpfV7VTY70ARb5Xu5xz5+Kk8SqN2oKSXZqKBoKCuIkOFlfNZBw0Xkk6SBJCpDrP/Hks5agJzu/xSOeqCy3gUeWmJnbAPqGEir0YqzupHBa3k=
+  distributions: sdist bdist_wheel
   on:
     tags: true
-
 notifications:
   email: false
