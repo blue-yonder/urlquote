@@ -15,7 +15,7 @@ matrix:
 
 before_install:
   # Install python on osx
-  - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then brew install python36; fi
+  - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then brew install python; fi
 
 install:
   # Install Rust and Cargo
