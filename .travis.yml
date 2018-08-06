@@ -13,9 +13,9 @@ matrix:
       os: osx
       python: 3.6
 
-before_install:
-  # Install python on osx
-  - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then brew install python; fi
+# before_install:
+#   # Install python on osx
+#   - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then brew install python; fi
 
 install:
   # Install Rust and Cargo
