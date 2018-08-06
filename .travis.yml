@@ -28,7 +28,7 @@ script:
   - pip install -e .
   - pytest test.py
 
-deploy:
+  deploy:
   provider: pypi
   user: "BYPyPi"
   parssword:
