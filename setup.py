@@ -16,6 +16,7 @@ def build_native(spec):
 
 setup(
     name='urlquote',
+    license='MIT',
     packages=['urlquote'],
     zip_safe=False,
     platforms='any',
