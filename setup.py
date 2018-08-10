@@ -14,6 +14,10 @@ def build_native(spec):
         rtld_flags=['NOW', 'NODELETE']
     )
 
+def readme():
+    with open('README.md') as f:
+        return f.read()
+
 setup(
     name='urlquote',
     packages=['urlquote'],
@@ -29,5 +33,7 @@ setup(
     author='Blue Yonder',
     author_email='oss@blue-yonder.com',
     license = 'MIT',
-    description='Fast quoting and unquoting of urls.'
+    description='Fast quoting and unquoting of urls.',
+    long_description=readme(),
+    long_description_content_type='text/markdown'
 )
