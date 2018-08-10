@@ -1,4 +1,5 @@
 from setuptools import setup
+from os import path
 
 def build_native(spec):
     # build rust library
@@ -13,6 +14,11 @@ def build_native(spec):
         header_filename=lambda: build.find_header('native.h', in_path='.'),
         rtld_flags=['NOW', 'NODELETE']
     )
+
+# read the contents of your README file
+def readme():
+    with open('Readme.md', encoding='utf-8') as f:
+        return f.read()
 
 setup(
     name='urlquote',
@@ -29,4 +35,6 @@ setup(
     author='Blue Yonder',
     author_email='oss@blue-yonder.com',
     description='Fast quoting and unquoting of urls.',
+    long_description=readme(),
+    long_description_content_type='text/markdown'
 )
