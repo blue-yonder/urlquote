@@ -15,13 +15,6 @@ def build_native(spec):
         rtld_flags=['NOW', 'NODELETE']
     )
 
-# read the contents of your README file
-def readme():
-    this_directory = path.abspath(path.dirname(__file__))
-    readme_path = path.join(this_directory, 'README.md')
-    with open(readme_path) as f:
-        return f.read()
-
 setup(
     name='urlquote',
     packages=['urlquote'],
@@ -37,7 +30,5 @@ setup(
     author='Blue Yonder',
     author_email='oss@blue-yonder.com',
     license = 'MIT',
-    description='Fast quoting and unquoting of urls.',
-    long_description=readme(),
-    long_description_content_type='text/markdown'
+    description='Fast quoting and unquoting of urls.'
 )
