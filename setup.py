@@ -17,7 +17,7 @@ def build_native(spec):
 
 # read the contents of your README file
 def readme():
-    with open('Readme.md', encoding='utf-8') as f:
+    with open('README.md') as f:
         return f.read()
 
 setup(
@@ -34,6 +34,7 @@ setup(
     ],
     author='Blue Yonder',
     author_email='oss@blue-yonder.com',
+    license = 'MIT',
     description='Fast quoting and unquoting of urls.',
     long_description=readme(),
     long_description_content_type='text/markdown'
