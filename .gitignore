@@ -5,6 +5,7 @@
 /.pytest_cache/
 /.eggs/
 /build/
+/dist/
 
 # Build artifacts
 /urlquote/_native__ffi.py

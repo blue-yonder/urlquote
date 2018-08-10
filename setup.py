@@ -17,7 +17,9 @@ def build_native(spec):
 
 # read the contents of your README file
 def readme():
-    with open('README.md') as f:
+    this_directory = path.abspath(path.dirname(__file__))
+    readme_path = path.join(this_directory, 'README.md')
+    with open(readme_path) as f:
         return f.read()
 
 setup(
