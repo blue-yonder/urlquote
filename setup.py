@@ -38,5 +38,6 @@ setup(
     license = 'MIT',
     description='Fast quoting and unquoting of urls.',
     long_description=readme(),
-    long_description_content_type='text/markdown'
+    long_description_content_type='text/markdown',
+    data_files=[('.', ['LICENSE', 'README.md'])]
 )
