@@ -29,6 +29,5 @@ setup(
     ],
     author='Blue Yonder',
     author_email='oss@blue-yonder.com',
-    description='Fast quoting and unquoting of urls.',
-    data_files=[('.', ['LICENSE', 'README.md'])]
+    description='Fast quoting and unquoting of urls.'
 )
