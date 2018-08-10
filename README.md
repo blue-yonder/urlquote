@@ -51,6 +51,33 @@ This library is a thin wrapper around the
 functionality to python via a C-Interface using
 [`milksnake`](https://github.com/getsentry/milksnake).
 
+To build it you need to [install rust and cargo](https://www.rust-lang.org/en-US/install.html). You
+can than proceed to build the wheel with:
+
+```bash
+python setup.py build sdist bdist_wheel
+```
+
+To execute the python tests use:
+
+```bash
+pip install -e .
+pytest test.py
+```
+
+There are also some rust only unit tests. To execute them change into the `rust` subdirectory and
+call.
+
+```bash
+cargo test
+```
+
+With the nightly toolchain installed you may also call the rust only benchmarks using:
+
+```bash
+cargo +nightly bench
+```
+
 Support
 -------
 
