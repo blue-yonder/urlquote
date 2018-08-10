@@ -35,7 +35,6 @@ setup(
     ],
     author='Blue Yonder',
     author_email='oss@blue-yonder.com',
-    license = 'MIT',
     description='Fast quoting and unquoting of urls.',
     long_description=readme(),
     long_description_content_type='text/markdown',
