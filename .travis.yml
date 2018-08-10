@@ -24,7 +24,7 @@ install:
 
 script:
   
-  - python setup.py bdist_wheel
+  - python setup.py sdist bdist_wheel
   - pip install -e .
   - pytest test.py
 
