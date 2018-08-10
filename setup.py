@@ -1,5 +1,4 @@
 from setuptools import setup
-from os import path
 
 def build_native(spec):
     # build rust library
