@@ -2,9 +2,9 @@
 from urlquote._native import ffi, lib
 import six
 
-# This buffer is passed to the C-Interface in order to obtain the quoted string. It will be
-# reallocated automatically by `_native_quote` and `_native_unquote`, if its size should not be
-# large enough. It is ok to reset this buffer to a smaller value, but it always needs to be a valid
+# This buffer is passed to the C interface in order to obtain the quoted string. It will be
+# reallocated automatically by `_native_quote` and `_native_unquote` if its size should not be
+# large enough. It is ok to reset this buffer to a smaller value but it always needs to be a valid
 # buffer.
 buffer = ffi.new('uint8_t[]', 1)
 
@@ -46,17 +46,17 @@ def quote(value):
         if not isinstance(value, six.text_type):
             value = str(value)
         value = value.encode('utf-8')
-    
+
     return _native_quote(value)
 
 
 def unquote(value):
     """
-    Decodes a urlencoded string and performs necessary decoding depending on the used python version.
+    Decodes a urlencoded string and performs necessary decoding depending on the used Python version.
     """
     if not isinstance(value, six.binary_type):
         if not isinstance(value, six.text_type):
             value = str(value)
         value = value.encode('utf-8')
-    
+
     return _native_unquote(value)
