@@ -7,18 +7,18 @@
  *
  * # Parameters
  *
- * * input_buf: Non Null pointer to utf-8 encoded character sequence to be quoted. A terminating
+ * * input_buf: Non-null pointer to UTF-8-encoded character sequence to be quoted. A terminating
  *              zero is not required.
- * * input_len: Number of bytes in input_buf (Without terminating zero).
- * * output_buf: Non Null pointer to buffer which will hold the utf-8 encoded output string. The
+ * * input_len: Number of bytes in input_buf (without terminating zero).
+ * * output_buf: Non-null pointer to buffer which will holds the UTF-8-encoded output string. The
  *               buffer should be big enough to hold the quoted string. This function is not going
  *               to write beyond the bounds specified by `output_len`.
  * * output_len: Length of the output buffer.
  *
  * # Return value
  *
- * The number of bytes requiered to hold the quoted string. By comparing `output_len` with the
- * returned value one can determine, if the provided output buffer has been sufficient.
+ * The number of bytes required to hold the quoted string. By comparing `output_len` with the
+ * returned value one can determine if the provided output buffer has been sufficient.
  */
 uintptr_t quote(const uint8_t *input_buf,
                 uintptr_t input_len,
@@ -30,18 +30,18 @@ uintptr_t quote(const uint8_t *input_buf,
  *
  * # Parameters
  *
- * * input_buf: Non Null pointer to utf-8 encoded character sequence to be unquoted. A terminating
+ * * input_buf: Non-null pointer to UTF-8-encoded character sequence to be unquoted. A terminating
  *              zero is not required.
- * * input_len: Number of bytes in input_buf (Without terminating zero).
- * * output_buf: Non Null pointer to buffer which will hold the utf-8 encoded output string. The
+ * * input_len: Number of bytes in input_buf (without terminating zero).
+ * * output_buf: Non-null pointer to buffer which will hold the UTF-8-encoded output string. The
  *               buffer should be big enough to hold the unquoted string. This function is not
  *               going to write beyond the bounds specified by `output_len`.
  * * output_len: Length of the output buffer.
  *
  * # Return value
  *
- * The number of bytes requiered to hold the unquoted string. By comparing `output_len` with the
- * returned value one can determine, if the provided output buffer has been sufficient.
+ * The number of bytes required to hold the unquoted string. By comparing `output_len` with the
+ * returned value one can determine if the provided output buffer has been sufficient.
  */
 uintptr_t unquote(const uint8_t *input_buf,
                   uintptr_t input_len,
