@@ -36,12 +36,8 @@ pub unsafe extern "C" fn quote(
         index += 1;
     }
 
-    if index < output_len {
-        // Buffer has been large enough to hold the quoted string, with space to spare.
-        index
-    } else {
-        quoted_bytes.count() + output_len
-    }
+    // The number of bytes required to hold the quoted string
+    index + quoted_bytes.count()
 }
 
 /// Fill the provided output buffer with the unquoted string.
@@ -78,12 +74,8 @@ pub unsafe extern "C" fn unquote(
         index += 1;
     }
 
-    if index < output_len {
-        // Buffer has been large enough to hold the quoted string, with space to spare.
-        index
-    } else {
-        unquoted_bytes.count() + output_len
-    }
+    // The number of bytes required to hold the unquoted string
+    index + unquoted_bytes.count() + output_len
 }
 
 #[cfg(test)]
