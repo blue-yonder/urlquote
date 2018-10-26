@@ -99,3 +99,17 @@ fn c_binding_quote_lorem_ipsum(b: &mut Bencher) {
         )
     })
 }
+
+#[bench]
+fn c_binding_spare_space(b: &mut Bencher) {
+    let input = "abc";
+    let mut buffer = vec![0; 1000];
+    b.iter(|| unsafe {
+        quote(
+            input.as_ptr(),
+            input.len(),
+            buffer.as_mut_ptr(),
+            buffer.len(),
+        )
+    })
+}
