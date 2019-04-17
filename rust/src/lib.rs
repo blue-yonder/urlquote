@@ -1,4 +1,3 @@
-extern crate percent_encoding;
 use percent_encoding::{percent_decode, percent_encode, DEFAULT_ENCODE_SET};
 use std::slice;
 
