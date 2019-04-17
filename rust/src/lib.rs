@@ -75,7 +75,7 @@ pub unsafe extern "C" fn unquote(
     }
 
     // The number of bytes required to hold the unquoted string
-    index + unquoted_bytes.count() + output_len
+    index + unquoted_bytes.count()
 }
 
 #[cfg(test)]
