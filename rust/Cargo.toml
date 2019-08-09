@@ -10,6 +10,3 @@ crate-type = ['cdylib', 'rlib']
 
 [dependencies]
 percent-encoding = "1.0.1"
-
-[profile.release]
-panic = 'abort'

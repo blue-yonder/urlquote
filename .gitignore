@@ -12,9 +12,5 @@
 /urlquote/_native__lib.so
 /urlquote/_native.py
 
-# Python environment
-/venv3/
-/venv2/
-
-# Visual Studio Code
-/.vscode/
+# Rust Build artefact
+/target/
