@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from urlquote._native import ffi, lib
+from .quoting import DEFAULT_QUOTING
 import six
 
 # This buffer is passed to the C interface in order to obtain the quoted string. It will be
@@ -8,18 +9,18 @@ import six
 # buffer.
 buffer = ffi.new('uint8_t[]', 1)
 
-def _native_quote(value):
+def _native_quote(value, quoting):
     """
     Urlencodes the given bytes
     """
     global buffer
     buffer_len = len(buffer)
-    quoted_len = lib.quote(value, len(value), buffer, buffer_len)
+    quoted_len = lib.quote(value, len(value), buffer, buffer_len, quoting)
     if quoted_len > buffer_len:
         # Our buffer has not been big enough to hold the quoted url. Let's allocate a buffer large
         # enough and try again.
         buffer = ffi.new('uint8_t[]', quoted_len)
-        lib.quote(value, len(value), buffer, quoted_len)
+        lib.quote(value, len(value), buffer, quoted_len, quoting)
 
     return ffi.string(buffer, quoted_len)
 
@@ -38,7 +39,7 @@ def _native_unquote(value):
 
     return ffi.string(buffer, unquoted_len)
 
-def quote(value):
+def quote(value, quoting = DEFAULT_QUOTING):
     """
     Performs string encoding and urlencodes the given string. Always returns utf-8 encoded bytes.
     """
@@ -47,7 +48,7 @@ def quote(value):
             value = str(value)
         value = value.encode('utf-8')
 
-    return _native_quote(value)
+    return _native_quote(value, quoting)
 
 
 def unquote(value):
