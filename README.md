@@ -32,7 +32,17 @@ pip install urlquote
 Encoding
 --------
 
-All ASCII characters less than 0x20 and greater than 0x7E are encoded. This includes special characters such as line feed, carriage return, NULL, etc. . Aside from these, space, double quote ("), hash (#), inequality qualifiers (<), (>), backtick (`), question mark (?), and curly brackets ({), (}) are also encoded.
+The following encodings are offered. `DEFAULT_QUOTING` is used in case the quoting parameter is not specified.
+
+| Name                 | Additional encoded characters                                                      |
+|----------------------|------------------------------------------------------------------------------------|
+| SIMPLE_QUOTING       |                                                                                    |
+| DEFAULT_QUOTING      | space, `<`,`>`,`` ` ``,`?`,`{`,`}`                                                 |
+| QUERY_QUOTING        | space, `"`,`#`,`<`,`>`                                                             |
+| PATH_SEGMENT_QUOTING | space, `"`,`#`,`<`,`>`,`` ` ``,`?`,`%`,`/`                                         |
+| USERINFO_QUOTING     | space, `"`,`#`,`<`,`>`,`` ` ``,`?`,`{`,`}`,`/`,`:`,`;`,`=`,`@`,`\`,`[`,`]`,`^`,`|` |
+
+Non printable and non standard ASCII characters are always quoted.
 
 Development
 -----------

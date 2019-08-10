@@ -1,5 +1,10 @@
-use percent_encoding::{percent_decode, percent_encode, DEFAULT_ENCODE_SET};
+use percent_encoding::percent_decode;
+use quoting::Quoting;
 use std::slice;
+
+mod quoting;
+
+pub use quoting::{DEFAULT_QUOTING, PATH_SEGMENT_QUOTING, QUERY_QUOTING, USERINFO_QUOTING};
 
 /// Fill the provided output buffer with the quoted string.
 ///
@@ -12,6 +17,7 @@ use std::slice;
 ///               buffer should be big enough to hold the quoted string. This function is not going
 ///               to write beyond the bounds specified by `output_len`.
 /// * output_len: Length of the output buffer.
+/// * quoting: Determines which characters are going to be percent encoded and which ones are not
 ///
 /// # Return value
 ///
@@ -23,20 +29,12 @@ pub unsafe extern "C" fn quote(
     input_len: usize,
     output_buf: *mut u8,
     output_len: usize,
+    quoting: *const Quoting,
 ) -> usize {
     let input = slice::from_raw_parts(input_buf, input_len);
     let output = slice::from_raw_parts_mut(output_buf, output_len);
 
-    let mut index = 0;
-    let mut quoted_bytes = percent_encode(input, DEFAULT_ENCODE_SET).flat_map(str::bytes);
-
-    for byte in (&mut quoted_bytes).take(output_len) {
-        output[index] = byte;
-        index += 1;
-    }
-
-    // The number of bytes required to hold the quoted string
-    index + quoted_bytes.count()
+    (*quoting).quote(input, output)
 }
 
 /// Fill the provided output buffer with the unquoted string.
@@ -81,7 +79,8 @@ pub unsafe extern "C" fn unquote(
 mod tests {
 
     use super::*;
-    use percent_encoding::utf8_percent_encode;
+    use percent_encoding::{utf8_percent_encode, DEFAULT_ENCODE_SET};
+    use quoting::DEFAULT_QUOTING;
 
     #[test]
     fn quoting_works() {
@@ -93,10 +92,22 @@ mod tests {
         let input = "/El Niño/";
         unsafe {
             let mut buf = vec![0; 10];
-            let buf_len = quote(input.as_ptr(), input.len(), buf.as_mut_ptr(), buf.len());
+            let buf_len = quote(
+                input.as_ptr(),
+                input.len(),
+                buf.as_mut_ptr(),
+                buf.len(),
+                DEFAULT_QUOTING,
+            );
             assert_eq!(buf_len, "/El%20Ni%C3%B1o/".len());
             let mut buf = vec![0; buf_len];
-            quote(input.as_ptr(), input.len(), buf.as_mut_ptr(), buf.len());
+            quote(
+                input.as_ptr(),
+                input.len(),
+                buf.as_mut_ptr(),
+                buf.len(),
+                DEFAULT_QUOTING,
+            );
             let quoted = String::from_utf8(buf).unwrap();
             assert_eq!(quoted, "/El%20Ni%C3%B1o/");
         }

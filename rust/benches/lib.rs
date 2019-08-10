@@ -34,7 +34,8 @@ fn trivial_case(b: &mut Bencher) {
         percent_encode(
             black_box("NoSpecialCharacters").as_bytes(),
             DEFAULT_ENCODE_SET,
-        ).collect::<String>()
+        )
+        .collect::<String>()
     })
 }
 
@@ -48,6 +49,7 @@ fn quoted_len_el_nino(b: &mut Bencher) {
             input.len(),
             buffer.as_mut_ptr(),
             buffer.len(),
+            DEFAULT_QUOTING,
         )
     })
 }
@@ -62,6 +64,7 @@ fn quoted_len_lorem_ipsum(b: &mut Bencher) {
             input.len(),
             buffer.as_mut_ptr(),
             buffer.len(),
+            DEFAULT_QUOTING
         )
     })
 }
@@ -79,6 +82,7 @@ fn c_binding_quote_el_nino(b: &mut Bencher) {
             input.len(),
             buffer.as_mut_ptr(),
             buffer.len(),
+            DEFAULT_QUOTING
         )
     })
 }
@@ -96,6 +100,7 @@ fn c_binding_quote_lorem_ipsum(b: &mut Bencher) {
             input.len(),
             buffer.as_mut_ptr(),
             buffer.len(),
+            DEFAULT_QUOTING
         )
     })
 }
@@ -110,6 +115,7 @@ fn c_binding_spare_space(b: &mut Bencher) {
             input.len(),
             buffer.as_mut_ptr(),
             buffer.len(),
+            DEFAULT_QUOTING
         )
     })
 }
