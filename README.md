@@ -47,7 +47,7 @@ Non printable and non standard ASCII characters are always quoted. The `PYTHON_3
 
 Development
 -----------
-a
+
 This library is a thin wrapper around the Rust crate [`percent-encoding`](https://crates.io/crates/percent-encoding). It exposes part of its functionality to python via a C interface using [`milksnake`](https://github.com/getsentry/milksnake).
 
 To build it you need to [install Rust and Cargo](https://www.rust-lang.org/en-US/install.html). Than you can proceed to build the wheel with:
