@@ -34,19 +34,20 @@ Encoding
 
 The following encodings are offered. `DEFAULT_QUOTING` is used in case the quoting parameter is not specified.
 
-| Name                 | Additional encoded characters                                                      |
-|----------------------|------------------------------------------------------------------------------------|
-| SIMPLE_QUOTING       |                                                                                    |
-| DEFAULT_QUOTING      | space, `<`,`>`,`` ` ``,`?`,`{`,`}`                                                 |
-| QUERY_QUOTING        | space, `"`,`#`,`<`,`>`                                                             |
-| PATH_SEGMENT_QUOTING | space, `"`,`#`,`<`,`>`,`` ` ``,`?`,`%`,`/`                                         |
-| USERINFO_QUOTING     | space, `"`,`#`,`<`,`>`,`` ` ``,`?`,`{`,`}`,`/`,`:`,`;`,`=`,`@`,`\`,`[`,`]`,`^`,`|` |
+| Name                 | Additional encoded characters                                                                                          |
+|----------------------|------------------------------------------------------------------------------------------------------------------------|
+| SIMPLE_QUOTING       |                                                                                                                        |
+| DEFAULT_QUOTING      | space, `<`,`>`,`` ` ``,`?`,`{`,`}`                                                                                     |
+| QUERY_QUOTING        | space, `"`,`#`,`<`,`>`                                                                                                 |
+| PATH_SEGMENT_QUOTING | space, `"`,`#`,`<`,`>`,`` ` ``,`?`,`%`,`/`                                                                             |
+| USERINFO_QUOTING     | space, `"`,`#`,`<`,`>`,`` ` ``,`?`,`{`,`}`,`/`,`:`,`;`,`=`,`@`,`\`,`[`,`]`,`^`,`|`                                     |
+| PYTHON_3_7_QUOTING   | space, `"`,`#`,`<`,`>`,`` ` ``,`?`,`{`,`}`,`$`,`%`,`&`,`\`,`(`,`)`,`,`,`=`,`;`,`:`,`!`,`\`,`@`,`[`,`]`,`^`,`|`,`+`,`*` |
 
-Non printable and non standard ASCII characters are always quoted.
+Non printable and non standard ASCII characters are always quoted. The `PYTHON_3_7_QUOTING` is going to work the same way in every Python version the name is only refering to the `urllib` default encoding used in Python 3.7.
 
 Development
 -----------
-
+a
 This library is a thin wrapper around the Rust crate [`percent-encoding`](https://crates.io/crates/percent-encoding). It exposes part of its functionality to python via a C interface using [`milksnake`](https://github.com/getsentry/milksnake).
 
 To build it you need to [install Rust and Cargo](https://www.rust-lang.org/en-US/install.html). Than you can proceed to build the wheel with:

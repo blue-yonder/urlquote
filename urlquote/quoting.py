@@ -31,3 +31,9 @@ PATH_SEGMENT_QUOTING = lib.PATH_SEGMENT_QUOTING
 # forward slash (/), colon (:), semi-colon (;), equality (=), at (@), backslash (\\), square
 # brackets ([), (]), caret (\^), and pipe (|) are encoded.
 USERINFO_QUOTING = lib.USERINFO_QUOTING
+
+# This is the default quoting used by urlib.parse.quote
+#
+# Quotes everything but alphanumeric letters, numbers and dash (-), underscore (_), slash (/),
+# point (.) and tilde (~).
+PYTHON_3_7_QUOTING = lib.PYTHON_3_7_QUOTING

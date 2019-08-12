@@ -1,6 +1,6 @@
 use percent_encoding::{
-    percent_encode, EncodeSet, DEFAULT_ENCODE_SET, PATH_SEGMENT_ENCODE_SET, QUERY_ENCODE_SET,
-    SIMPLE_ENCODE_SET, USERINFO_ENCODE_SET,
+    define_encode_set, percent_encode, EncodeSet, DEFAULT_ENCODE_SET, PATH_SEGMENT_ENCODE_SET,
+    QUERY_ENCODE_SET, SIMPLE_ENCODE_SET, USERINFO_ENCODE_SET,
 };
 
 /// All ASCII charcters less than hexidecimal 20 and greater than 7E are encoded.  This includes
@@ -39,6 +39,14 @@ pub static PATH_SEGMENT_QUOTING: &Quoting = &Quoting(&PATH_SEGMENT_ENCODE_SET);
 /// brackets ([), (]), caret (\^), and pipe (|) are encoded.
 #[no_mangle]
 pub static USERINFO_QUOTING: &Quoting = &Quoting(&USERINFO_ENCODE_SET);
+
+define_encode_set! {
+    /// This emulates the urllib default encoding used by Python 3.7.
+    pub PYTHON_3_7_ENCODE_SET = [DEFAULT_ENCODE_SET] | {'$', '%', '&', '\'', '(', ')', ',', '=', ';',':','!','\\','@','[',']','^','|','+','*'}
+}
+
+#[no_mangle]
+pub static PYTHON_3_7_QUOTING: &Quoting = &Quoting(&PYTHON_3_7_ENCODE_SET);
 
 /// A `Quoting` decides which characters are going to be quoted.
 pub struct Quoting(

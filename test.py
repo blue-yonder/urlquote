@@ -24,14 +24,16 @@ def test_unquote_string():
     assert expected == actual
 
 @pytest.mark.skipif(
-    sys.version_info < (3,3),
+    sys.version_info < (3,7),
     reason="requires python3")
-def test_userinfo_quoting():
+def test_python_3_7_quoting():
     '''
     This test verifies that the userinfo encoding is identical with the defaul urllib encoding
     '''
 
-    quot = quoting.USERINFO_QUOTING
+    from urllib.parse import quote as urllib_quote
+
+    quot = quoting.PYTHON_3_7_QUOTING
 
     # Control characters
     ascii_bytes = bytes(range(0, 32))
@@ -49,6 +51,7 @@ def test_userinfo_quoting():
     utf8_bytes = ascii_str.encode('utf-8')
 
 
-    expected = "%20!%22%23$%&'()*+,-.%2F0123456789%3A%3B%3C%3D%3E%3F%40ABCDEFGHIJKLMNOPQRSTUVWXYZ%5B%5C%5D%5E_%60abcdefghijklmnopqrstuvwxyz%7B%7C%7D~"
+    # expected = "%20!%22%23$%&'()*+,-.%2F0123456789%3A%3B%3C%3D%3E%3F%40ABCDEFGHIJKLMNOPQRSTUVWXYZ%5B%5C%5D%5E_%60abcdefghijklmnopqrstuvwxyz%7B%7C%7D~"
+    expected = urllib_quote(utf8_bytes)
     actual = quote(utf8_bytes, quot).decode('utf-8')
     assert expected == actual

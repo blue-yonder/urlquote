@@ -12,6 +12,8 @@ extern const Quoting* DEFAULT_QUOTING;
 
 extern const Quoting* PATH_SEGMENT_QUOTING;
 
+extern const Quoting* PYTHON_3_7_QUOTING;
+
 extern const Quoting* QUERY_QUOTING;
 
 extern const Quoting* SIMPLE_QUOTING;

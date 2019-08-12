@@ -13,7 +13,7 @@ from urllib.parse import quote as urllib_quote
 import timeit
 
 def benchmark_quote_urlquote():
-    urlquote.quote(LOREMIPSUM)
+    urlquote.quote(LOREMIPSUM, urlquote.quoting.PYTHON_3_7_QUOTING)
 
 def benchmark_quote_urllib():
     urllib_quote(LOREMIPSUM)
