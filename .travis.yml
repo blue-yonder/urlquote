@@ -1,32 +1,33 @@
 matrix:
   include:
-    - language: python
-      python: 2.7
-
-    - language: python
-      python: 3.5
-
-    - language: python
-      python: 3.6
-
-    - language: generic
-      python: 3.6
-      os: osx
-
+  - language: python
+    python: 2.7
+  - language: python
+    python: 3.5
+  - language: python
+    python: 3.6
+  - language: generic
+    python: 3.6
+    os: osx
 install:
-  # Install Rust and Cargo
-  - curl curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
-  - export PATH="$HOME/.cargo/bin:$PATH"
-  - rustc -V
-  # Install Requirements
-  - pip install -r requirements.txt
-  - pip install -r requirements-test.txt
-
+- curl curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
+- export PATH="$HOME/.cargo/bin:$PATH"
+- rustc -V
+- pip install -r requirements.txt
+- pip install -r requirements-test.txt
 script:
-
-  - python setup.py sdist bdist_wheel
-  - pip install -e .
-  - pytest test.py
-
+- python setup.py sdist bdist_wheel
+- pip install -e .
+- pytest test.py
 notifications:
   email: false
+deploy:
+  provider: pypi
+  user: BYPyPi
+  on:
+    tags: true
+  distributions: sdist bdist_wheel
+  skip_existing: true
+  skip_cleanup: true
+  password:
+    secure: pviWvC8QhtNMULoPuTYx4j8d0lMGt/eYBYnfUIgTO/WmA7iZmsSzsHrCL1xLIjmFTtcktpJ4P7qVT2IUHSlZ2Iu3MnuSE2nowZMIv7DxjBo7f3Wzb4udDSZbpZ+Rd7SQ9bQJhCH+fGB3AhJNHDKF3MfPC8RSrne4174kMhKfpYGxQ4xLnzAtuxC0Uy8BsYk5xoVQq0euTAx3q4YpO4lGacWHP/acaUqznn+u39PtuTTCSdwSOYKs6RZ8cFsk3505mqIA6bfPLH2DJ+OaNvhLOsk2eIYe35Hg/yUed3ujeCJJ4m/F6u+RZvu4JQZ5hW4siFVEPsdvsyC/yuUIDUvF9wyhN8W7hLpBiRpwaBD3slQX3SJQpcIjiLLPxAriYy9yrTLGAKyV3Hsol8FbhBL97RvYddc3UIYVi7PBL+H6UHixdpXZkk63DLXJHSuvX8mCoFbF7utk5dGZYZx6yZhPXoe/jIp1WZgOKGXi7OTbx4cLVGbU2OZc+z2Nv9QFmEyEWjhDpAJT0z6XUvq+MPN+V13SWY7R3Y39zyCWwUuBJVu0BgDi4b0cUk7oDZh/HtObjJkrl+v+TQ3KielUGNh5ATm4ER3gusMS+33Y9n+uFJZ4AZuuzMqYb1fzdMl3xT8tYe35USGhjsya3Bq1Tj3arD+25zlBHeXhdNGekOgA9jg=
