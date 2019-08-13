@@ -34,14 +34,14 @@ Encoding
 
 The following encodings are offered. `DEFAULT_QUOTING` is used in case the quoting parameter is not specified.
 
-| Name                 | Additional encoded characters                                                                                           |
-|----------------------|-------------------------------------------------------------------------------------------------------------------------|
-| SIMPLE_QUOTING       |                                                                                                                         |
-| DEFAULT_QUOTING      | space, `<`,`>`,`` ` ``,`?`,`{`,`}`                                                                                      |
-| QUERY_QUOTING        | space, `"`,`#`,`<`,`>`                                                                                                  |
-| PATH_SEGMENT_QUOTING | space, `"`,`#`,`<`,`>`,`` ` ``,`?`,`%`,`/`                                                                              |
-| USERINFO_QUOTING     | space, `"`,`#`,`<`,`>`,`` ` ``,`?`,`{`,`}`,`/`,`:`,`;`,`=`,`@`,`\`,`[`,`]`,`^`,`\|`                                     |
-| PYTHON_3_7_QUOTING   | space, `"`,`#`,`<`,`>`,`` ` ``,`?`,`{`,`}`,`$`,`%`,`&`,`\`,`(`,`)`,`,`,`=`,`;`,`:`,`!`,`\`,`@`,`[`,`]`,`^`,`\|`,`+`,`*` |
+| Name                 | Additional encoded characters                                                                                       |
+|----------------------|---------------------------------------------------------------------------------------------------------------------|
+| SIMPLE_QUOTING       |                                                                                                                     |
+| DEFAULT_QUOTING      | space, `<`,`>`,`` ` ``,`?`,`{`,`}`                                                                                  |
+| QUERY_QUOTING        | space, `"`,`#`,`<`,`>`                                                                                              |
+| PATH_SEGMENT_QUOTING | space, `"`,`#`,`<`,`>`,`` ` ``,`?`,`%`,`/`                                                                          |
+| USERINFO_QUOTING     | space, `"`,`#`,`<`,`>`,`` ` ``,`?`,`{`,`}`,`/`,`:`,`;`,`=`,`@`,`\`,`[`,`]`,`^`,`\|`                                 |
+| PYTHON_3_7_QUOTING   | space, `"`,`#`,`<`,`>`,`` ` ``,`?`,`{`,`}`,`$`,`%`,`&`,`\`,`(`,`)`,`,`,`=`,`;`,`:`,`!`,`@`,`[`,`]`,`^`,`\|`,`+`,`*` |
 
 Non printable and non standard ASCII characters are always quoted. The `PYTHON_3_7_QUOTING` is going to work the same way in every Python version the name is only refering to the `urllib` default encoding used in Python 3.7.
 
