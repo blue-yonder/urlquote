@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from urlquote import quote, unquote, quoting
+import urlquote
 import pytest
 import sys
 
@@ -19,6 +20,14 @@ def test_quote_string():
     assert expected == actual
 
 def test_unquote_string():
+    expected = u'/El Niño/'.encode('utf-8')
+    actual = unquote(u'/El%20Ni%C3%B1o/')
+    assert expected == actual
+
+def test_unquote_string_with_buffer_reallocation():
+    # Make sure buffer is NOT big enough to hold unquoted string
+    urlquote.buffer = urlquote._native.ffi.new('uint8_t[]', 1)
+
     expected = u'/El Niño/'.encode('utf-8')
     actual = unquote(u'/El%20Ni%C3%B1o/')
     assert expected == actual

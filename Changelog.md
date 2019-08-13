@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.1.1
+-----
+
+* Fix: Markdown in Readme has not been rendered correctly due to not escaping `|` inside table.
+* Fix: `unquote` would trigger a `TypeError` if the buffer has been not big enough to hold the unquoted bytes.
+
 1.1.0
 -----
 

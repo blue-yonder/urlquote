@@ -35,7 +35,7 @@ def _native_unquote(value):
         # Our buffer has not been big enough to hold the unquoted url. Let's allocate a buffer large
         # enough and try again.
         buffer = ffi.new('uint8_t[]', unquoted_len)
-        lib.quote(value, len(value), buffer, unquoted_len)
+        lib.unquote(value, len(value), buffer, unquoted_len)
 
     return ffi.string(buffer, unquoted_len)
 
