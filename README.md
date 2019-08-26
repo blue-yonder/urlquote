@@ -75,6 +75,12 @@ With the nightly toolchain installed you may also call the Rust-only benchmarks 
 cargo +nightly bench
 ```
 
+Links
+-----
+
+* PyPI package: <https://pypi.org/project/urlquote/>
+* Conda feedstock: <https://github.com/conda-forge/urlquote-feedstock>
+
 Support
 -------
 
