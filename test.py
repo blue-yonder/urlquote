@@ -40,7 +40,6 @@ def test_threading():
         return unquote(u'/El%20Ni%C3%B1o/')
     with ThreadPoolExecutor() as exc:
         future = exc.submit(foo)
-    wait(future)
     assert future.result() == expected
 
 @pytest.mark.skipif(
