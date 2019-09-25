@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from urlquote import quote, unquote, quoting
-from concurrent.futures import ThreadPoolExecutor, wait
 import time
 import urlquote
 import pytest
@@ -39,8 +38,9 @@ def test_unquote_string_with_buffer_reallocation():
     actual = unquote(u"/El%20Ni%C3%B1o/")
     assert expected == actual
 
-
+@pytest.mark.skipif(sys.version_info < (3, 6), reason="requires python3")
 def test_threading():
+    from concurrent.futures import ThreadPoolExecutor, wait
     expected = u"/El Niño/".encode("utf-8")
 
     def foo():
@@ -51,7 +51,7 @@ def test_threading():
     assert future.result() == expected
 
 
-@pytest.mark.skipif(sys.version_info < (3, 7), reason="requires python3")
+@pytest.mark.skipif(sys.version_info < (3, 7), reason="requires python3.7")
 def test_python_3_7_quoting():
     """
     This test verifies that the userinfo encoding is identical with the defaul urllib encoding
