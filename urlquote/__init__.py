@@ -6,18 +6,22 @@ import threading
 
 threadlocal = threading.local()
 
-# This buffer is passed to the C interface in order to obtain the quoted string. It will be
-# reallocated automatically by `_native_quote` and `_native_unquote` if its size should not be
-# large enough. It is ok to reset this buffer to a smaller value but it always needs to be a valid
-# buffer.
-# To prevent race conditions on the buffer between threads, the buffer is made threadlocal
-threadlocal.buffer = ffi.new("uint8_t[]", 1)
+
+def _ensure_buffer():
+    # This buffer is passed to the C interface in order to obtain the quoted string. It will be
+    # reallocated automatically by `_native_quote` and `_native_unquote` if its size should not be
+    # large enough. It is ok to reset this buffer to a smaller value but it always needs to be a valid
+    # buffer.
+    # To prevent race conditions on the buffer between threads, the buffer is made threadlocal
+    if not hasattr(threadlocal, "buffer"):
+        threadlocal.buffer = ffi.new("uint8_t[]", 1)
 
 
 def _native_quote(value, quoting):
     """
     Urlencodes the given bytes
     """
+    _ensure_buffer()
     buffer = threadlocal.buffer
     buffer_len = len(buffer)
     quoted_len = lib.quote(value, len(value), buffer, buffer_len, quoting)
@@ -34,6 +38,7 @@ def _native_unquote(value):
     """
     Urldecodes the given bytes
     """
+    _ensure_buffer()
     buffer = threadlocal.buffer
     buffer_len = len(buffer)
     unquoted_len = lib.unquote(value, len(value), buffer, buffer_len)

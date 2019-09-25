@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from urlquote import quote, unquote, quoting
+from concurrent.futures import ThreadPoolExecutor, wait
+import time
 import urlquote
 import pytest
 import sys
@@ -31,6 +33,15 @@ def test_unquote_string_with_buffer_reallocation():
     expected = u'/El Niño/'.encode('utf-8')
     actual = unquote(u'/El%20Ni%C3%B1o/')
     assert expected == actual
+
+def test_threading():
+    expected = u'/El Niño/'.encode('utf-8')
+    def foo():
+        return unquote(u'/El%20Ni%C3%B1o/')
+    with ThreadPoolExecutor() as exc:
+        future = exc.submit(foo)
+    wait(future)
+    assert future.result() == expected
 
 @pytest.mark.skipif(
     sys.version_info < (3,7),
