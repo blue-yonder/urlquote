@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.1.2
+-----
+
+* Vendor dependency `percent-encoding` in order ease build for enterprises who do not have access to the internet on the build server.
+
 1.1.1
 -----
 
