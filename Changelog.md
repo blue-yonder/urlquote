@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.1.3
+-----
+
+* Fix: In order to prevent race conditions the global `buffer` variable has been made threadlocal.
+
 1.1.2
 -----
 
