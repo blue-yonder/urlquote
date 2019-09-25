@@ -2,42 +2,43 @@
 from urlquote._native import ffi, lib
 from .quoting import DEFAULT_QUOTING
 import six
+import threading
+
+threadlocal = threading.local()
 
 # This buffer is passed to the C interface in order to obtain the quoted string. It will be
 # reallocated automatically by `_native_quote` and `_native_unquote` if its size should not be
 # large enough. It is ok to reset this buffer to a smaller value but it always needs to be a valid
 # buffer.
-buffer = ffi.new('uint8_t[]', 1)
+threadlocal.buffer = ffi.new('uint8_t[]', 1)
 
 def _native_quote(value, quoting):
     """
     Urlencodes the given bytes
     """
-    global buffer
-    buffer_len = len(buffer)
-    quoted_len = lib.quote(value, len(value), buffer, buffer_len, quoting)
+    buffer_len = len(threadlocal.buffer)
+    quoted_len = lib.quote(value, len(value), threadlocal.buffer, buffer_len, quoting)
     if quoted_len > buffer_len:
         # Our buffer has not been big enough to hold the quoted url. Let's allocate a buffer large
         # enough and try again.
-        buffer = ffi.new('uint8_t[]', quoted_len)
-        lib.quote(value, len(value), buffer, quoted_len, quoting)
+        threadlocal.buffer = ffi.new('uint8_t[]', quoted_len)
+        lib.quote(value, len(value), threadlocal.buffer, quoted_len, quoting)
 
-    return ffi.string(buffer, quoted_len)
+    return ffi.string(threadlocal.buffer, quoted_len)
 
 def _native_unquote(value):
     """
     Urldecodes the given bytes
     """
-    global buffer
-    buffer_len = len(buffer)
-    unquoted_len = lib.unquote(value, len(value), buffer, buffer_len)
+    buffer_len = len(threadlocal.buffer)
+    unquoted_len = lib.unquote(value, len(value), threadlocal.buffer, buffer_len)
     if unquoted_len > buffer_len:
         # Our buffer has not been big enough to hold the unquoted url. Let's allocate a buffer large
         # enough and try again.
-        buffer = ffi.new('uint8_t[]', unquoted_len)
-        lib.unquote(value, len(value), buffer, unquoted_len)
+        threadlocal.buffer = ffi.new('uint8_t[]', unquoted_len)
+        lib.unquote(value, len(value), threadlocal.buffer, unquoted_len)
 
-    return ffi.string(buffer, unquoted_len)
+    return ffi.string(threadlocal.buffer, unquoted_len)
 
 def quote(value, quoting = DEFAULT_QUOTING):
     """
