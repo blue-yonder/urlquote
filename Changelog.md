@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.1.4
+-----
+
+No changes made. This release is just to test the CI-Pipeline using API-tokens.
+
 1.1.3
 -----
 
