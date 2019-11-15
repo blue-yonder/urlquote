@@ -4,7 +4,13 @@ use std::slice;
 
 mod quoting;
 
-pub use quoting::{DEFAULT_QUOTING, PATH_SEGMENT_QUOTING, QUERY_QUOTING, USERINFO_QUOTING};
+pub use quoting::{
+    DEFAULT_QUOTING, PATH_SEGMENT_QUOTING, PYTHON_3_7_QUOTING, QUERY_QUOTING, SIMPLE_QUOTING,
+    USERINFO_QUOTING,
+};
+
+// Required by benches
+pub use quoting::DEFAULT;
 
 /// Fill the provided output buffer with the quoted string.
 ///
@@ -23,6 +29,16 @@ pub use quoting::{DEFAULT_QUOTING, PATH_SEGMENT_QUOTING, QUERY_QUOTING, USERINFO
 ///
 /// The number of bytes required to hold the quoted string. By comparing `output_len` with the
 /// returned value one can determine if the provided output buffer has been sufficient.
+///
+/// # Safety
+///
+/// * input_buf: Must not be zero and must point to readable memory.
+/// * input_len: Must not be larger than the `input_buf` length.
+/// * ouput_buf: Must not be zero and must point to writeable memory. May not overlap with
+///              `input_buf`.
+/// * output_len: Must not be larger than the `output_buf` length.
+/// * quoting: Must point to an instance of Quoting, which is valid, for the duration of the
+///            function call.
 #[no_mangle]
 pub unsafe extern "C" fn quote(
     input_buf: *const u8,
@@ -53,6 +69,15 @@ pub unsafe extern "C" fn quote(
 ///
 /// The number of bytes required to hold the unquoted string. By comparing `output_len` with the
 /// returned value one can determine if the provided output buffer has been sufficient.
+///
+/// # Safety
+///
+/// * input_buf: Must not be zero and must point to readable memory.
+/// * input_len: Must not be larger than the `input_buf` length.
+/// * output_buf: Non-null pointer to buffer which will hold the UTF-8-encoded output string. The
+///               buffer should be big enough to hold the unquoted string. This function is not
+///               going to write beyond the bounds specified by `output_len`.
+/// * output_len: Length of the output buffer.
 #[no_mangle]
 pub unsafe extern "C" fn unquote(
     input_buf: *const u8,
@@ -79,13 +104,13 @@ pub unsafe extern "C" fn unquote(
 mod tests {
 
     use super::*;
-    use percent_encoding::{utf8_percent_encode, DEFAULT_ENCODE_SET};
-    use quoting::DEFAULT_QUOTING;
+    use percent_encoding::utf8_percent_encode;
+    use quoting::{DEFAULT, DEFAULT_QUOTING};
 
     #[test]
     fn quoting_works() {
         assert_eq!(
-            utf8_percent_encode("/El Niño/", DEFAULT_ENCODE_SET).to_string(),
+            utf8_percent_encode("/El Niño/", DEFAULT).to_string(),
             "/El%20Ni%C3%B1o/"
         );
 
@@ -116,7 +141,7 @@ mod tests {
     #[test]
     fn unquoting_works() {
         assert_eq!(
-            utf8_percent_encode("/El Niño/", DEFAULT_ENCODE_SET).to_string(),
+            utf8_percent_encode("/El Niño/", DEFAULT).to_string(),
             "/El%20Ni%C3%B1o/"
         );
 

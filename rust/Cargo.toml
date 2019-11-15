@@ -1,6 +1,6 @@
 [package]
 name = "urlquote"
-version = "0.3.0"
+version = "0.4.0"
 authors = ["Blue Yonder <oss@blue-yonder.com>"]
 publish = false
 edition = "2018"
@@ -9,4 +9,4 @@ edition = "2018"
 crate-type = ['cdylib', 'rlib']
 
 [dependencies]
-percent-encoding = "1.0.1"
+percent-encoding = "2.1.0"
