@@ -1,5 +1,5 @@
 use percent_encoding::percent_decode;
-use quoting::Quoting;
+use quoting::{Quote, Quoting};
 use std::slice;
 
 mod quoting;
@@ -8,9 +8,6 @@ pub use quoting::{
     DEFAULT_QUOTING, PATH_SEGMENT_QUOTING, PYTHON_3_7_QUOTING, QUERY_QUOTING, SIMPLE_QUOTING,
     USERINFO_QUOTING,
 };
-
-// Required by benches
-pub use quoting::DEFAULT;
 
 /// Fill the provided output buffer with the quoted string.
 ///
@@ -50,7 +47,7 @@ pub unsafe extern "C" fn quote(
     let input = slice::from_raw_parts(input_buf, input_len);
     let output = slice::from_raw_parts_mut(output_buf, output_len);
 
-    (*quoting).quote(input, output)
+    (&*quoting).quote(input, output)
 }
 
 /// Fill the provided output buffer with the unquoted string.
@@ -105,12 +102,12 @@ mod tests {
 
     use super::*;
     use percent_encoding::utf8_percent_encode;
-    use quoting::{DEFAULT, DEFAULT_QUOTING};
+    use quoting::DEFAULT_QUOTING;
 
     #[test]
     fn quoting_works() {
         assert_eq!(
-            utf8_percent_encode("/El Niño/", DEFAULT).to_string(),
+            utf8_percent_encode("/El Niño/", DEFAULT_QUOTING).to_string(),
             "/El%20Ni%C3%B1o/"
         );
 
@@ -141,7 +138,7 @@ mod tests {
     #[test]
     fn unquoting_works() {
         assert_eq!(
-            utf8_percent_encode("/El Niño/", DEFAULT).to_string(),
+            utf8_percent_encode("/El Niño/", DEFAULT_QUOTING).to_string(),
             "/El%20Ni%C3%B1o/"
         );
 
