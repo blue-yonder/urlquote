@@ -5,15 +5,15 @@ matrix:
   include:
   - language: rust
     os: windows
-    python: "3.7"
+    python: "3.x"
     before_install:
     - cd ../..
     - mv $TRAVIS_REPO_SLUG _old
     - git config --global core.autocrlf false
     - git clone --depth=50 _old $TRAVIS_REPO_SLUG
     - cd $TRAVIS_REPO_SLUG
-    - choco install python3
-    - export PATH="/c/Python37:/c/Python37/Scripts:$PATH"
+    - choco install python3 --params "/InstallDir:C:\\Python"
+    - export PATH="/c/Python:/c/Python/Scripts:$PATH"
     - python -m pip install --upgrade pip wheel
   - language: rust
     python: "3.7"
