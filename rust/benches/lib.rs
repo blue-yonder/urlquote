@@ -3,7 +3,7 @@ extern crate percent_encoding;
 extern crate test;
 extern crate urlquote;
 
-use percent_encoding::{percent_encode, utf8_percent_encode, DEFAULT_ENCODE_SET};
+use percent_encoding::{percent_encode, utf8_percent_encode};
 use test::{black_box, Bencher};
 use urlquote::*;
 
@@ -15,27 +15,23 @@ const LOREM_IPSUM : &str = "Lorem ipsum dolor sit amet, consectetur adipiscing e
 
 #[bench]
 fn encode_el_nino_collect_to_string(b: &mut Bencher) {
-    b.iter(|| utf8_percent_encode(black_box("/El Niño/"), DEFAULT_ENCODE_SET).collect::<String>())
+    b.iter(|| utf8_percent_encode(black_box("/El Niño/"), DEFAULT_QUOTING).collect::<String>())
 }
 
 #[bench]
 fn encode_lorem_ipsum_collect_to_string(b: &mut Bencher) {
-    b.iter(|| utf8_percent_encode(black_box(LOREM_IPSUM), DEFAULT_ENCODE_SET).collect::<String>())
+    b.iter(|| utf8_percent_encode(black_box(LOREM_IPSUM), DEFAULT_QUOTING).collect::<String>())
 }
 
 #[bench]
 fn encode_el_nino_to_string(b: &mut Bencher) {
-    b.iter(|| utf8_percent_encode(black_box("/El Niño/"), DEFAULT_ENCODE_SET).to_string())
+    b.iter(|| utf8_percent_encode(black_box("/El Niño/"), DEFAULT_QUOTING).to_string())
 }
 
 #[bench]
 fn trivial_case(b: &mut Bencher) {
     b.iter(|| {
-        percent_encode(
-            black_box("NoSpecialCharacters").as_bytes(),
-            DEFAULT_ENCODE_SET,
-        )
-        .collect::<String>()
+        percent_encode(black_box("NoSpecialCharacters").as_bytes(), DEFAULT_QUOTING).collect::<String>()
     })
 }
 
@@ -64,7 +60,7 @@ fn quoted_len_lorem_ipsum(b: &mut Bencher) {
             input.len(),
             buffer.as_mut_ptr(),
             buffer.len(),
-            DEFAULT_QUOTING
+            DEFAULT_QUOTING,
         )
     })
 }
@@ -72,9 +68,7 @@ fn quoted_len_lorem_ipsum(b: &mut Bencher) {
 #[bench]
 fn c_binding_quote_el_nino(b: &mut Bencher) {
     let input = "/El Niño/";
-    let len = utf8_percent_encode(input, DEFAULT_ENCODE_SET)
-        .map(str::len)
-        .sum();
+    let len = utf8_percent_encode(input, DEFAULT_QUOTING).map(str::len).sum();
     let mut buffer = vec![0; len];
     b.iter(|| unsafe {
         quote(
@@ -82,7 +76,7 @@ fn c_binding_quote_el_nino(b: &mut Bencher) {
             input.len(),
             buffer.as_mut_ptr(),
             buffer.len(),
-            DEFAULT_QUOTING
+            DEFAULT_QUOTING,
         )
     })
 }
@@ -90,9 +84,7 @@ fn c_binding_quote_el_nino(b: &mut Bencher) {
 #[bench]
 fn c_binding_quote_lorem_ipsum(b: &mut Bencher) {
     let input = LOREM_IPSUM;
-    let len = utf8_percent_encode(input, DEFAULT_ENCODE_SET)
-        .map(str::len)
-        .sum();
+    let len = utf8_percent_encode(input, DEFAULT_QUOTING).map(str::len).sum();
     let mut buffer = vec![0; len];
     b.iter(|| unsafe {
         quote(
@@ -100,7 +92,7 @@ fn c_binding_quote_lorem_ipsum(b: &mut Bencher) {
             input.len(),
             buffer.as_mut_ptr(),
             buffer.len(),
-            DEFAULT_QUOTING
+            DEFAULT_QUOTING,
         )
     })
 }
@@ -115,7 +107,7 @@ fn c_binding_spare_space(b: &mut Bencher) {
             input.len(),
             buffer.as_mut_ptr(),
             buffer.len(),
-            DEFAULT_QUOTING
+            DEFAULT_QUOTING,
         )
     })
 }
