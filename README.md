@@ -58,11 +58,18 @@ To build it you need to [install Rust and Cargo](https://www.rust-lang.org/en-US
 python setup.py build sdist bdist_wheel
 ```
 
-To execute the Python tests use:
+To setup the development environment run:
 
 ```bash
 pip install -e .
-pytest test.py
+pip install -r requirements.txt
+pip install -r requirements-test.txt
+```
+
+To execute the tests run
+
+```bash
+pytest
 ```
 
 There are also some Rust-only unit tests. To execute them change into the `rust` subdirectory and call.
