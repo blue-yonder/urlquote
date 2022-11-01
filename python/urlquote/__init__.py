@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-from urlquote._native import ffi, lib
+from urlquote.urlquote import ffi, lib
 from .quoting import DEFAULT_QUOTING
-import six
 import threading
 
 threadlocal = threading.local()
@@ -55,8 +54,8 @@ def quote(value, quoting=DEFAULT_QUOTING):
     """
     Performs string encoding and urlencodes the given string. Always returns utf-8 encoded bytes.
     """
-    if not isinstance(value, six.binary_type):
-        if not isinstance(value, six.text_type):
+    if not isinstance(value, bytes):
+        if not isinstance(value, str):
             value = str(value)
         value = value.encode("utf-8")
 
@@ -67,8 +66,8 @@ def unquote(value):
     """
     Decodes a urlencoded string and performs necessary decoding depending on the used Python version.
     """
-    if not isinstance(value, six.binary_type):
-        if not isinstance(value, six.text_type):
+    if not isinstance(value, bytes):
+        if not isinstance(value, str):
             value = str(value)
         value = value.encode("utf-8")
 

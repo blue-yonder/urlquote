@@ -8,10 +8,7 @@
 /dist/
 
 # Build artifacts
-/urlquote/_native__ffi.py
-/urlquote/_native__lib.so
-/urlquote/_native__lib.cp*-win_amd64.pyd
-/urlquote/_native.py
+python/urlquote/urlquote/
 
 # Rust Build artefact
 /target/

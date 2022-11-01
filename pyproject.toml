@@ -1,0 +1,25 @@
+[build-system]
+requires = ["cffi", "maturin>=0.13,<0.14"]
+build-backend = "maturin"
+
+[project]
+name = "urlquote"
+authors = [{name = "Blue Yonder", email = "oss@blue-yonder.com"}]
+description='Fast quoting and unquoting of urls.'
+readme = "README.md"
+version = "2.0.0"
+dependencies = ["cffi"]
+
+[project.license]
+file = "LICENSE"
+
+[project.optional-dependencies]
+test = ["pytest < 8.0.0"]
+
+[project.urls]
+repository = "https://github.com/blue-yonder/urlquote"
+changelog = "https://github.com/blue-yonder/urlquote/main/Changelog.md"
+
+[tool.maturin]
+# Bindings type
+bindings = "cffi"
