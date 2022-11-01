@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.com/blue-yonder/urlquote.svg?branch=master)](https://travis-ci.com/blue-yonder/urlquote)
-
 Urlquote
 ========
 
@@ -50,20 +48,18 @@ Non printable and non standard ASCII characters are always quoted. The `PYTHON_3
 Development
 -----------
 
-This library is a thin wrapper around the Rust crate [`percent-encoding`](https://crates.io/crates/percent-encoding). It exposes part of its functionality to python via a C interface using [`milksnake`](https://github.com/getsentry/milksnake).
+This library is a thin wrapper around the Rust crate [`percent-encoding`](https://crates.io/crates/percent-encoding). It exposes part of its functionality to python via a C interface using [`cffi`](https://cffi.readthedocs.io/en/latest/).
 
 To build it you need to [install Rust and Cargo](https://www.rust-lang.org/en-US/install.html). Than you can proceed to build the wheel with:
 
 ```bash
-python setup.py build sdist bdist_wheel
+python -m pip install build
 ```
 
 To setup the development environment run:
 
 ```bash
-pip install -e .
-pip install -r requirements.txt
-pip install -r requirements-test.txt
+python -m pip install -e .[test]
 ```
 
 To execute the tests run
@@ -76,12 +72,6 @@ There are also some Rust-only unit tests. To execute them change into the `rust`
 
 ```bash
 cargo test
-```
-
-With the nightly toolchain installed you may also call the Rust-only benchmarks using:
-
-```bash
-cargo +nightly bench
 ```
 
 Links

@@ -3,7 +3,7 @@ use percent_encoding::{percent_encode, AsciiSet, CONTROLS};
 /// All ASCII charcters less than hexidecimal 20 and greater than 7E are encoded.  This includes
 /// special charcters such as line feed, carriage return, NULL, etc.
 #[no_mangle]
-pub static SIMPLE_QUOTING: &Quoting = CONTROLS;
+pub static SIMPLE_QUOTING: &Quoting = &Quoting(CONTROLS.add(b'a').remove(b'a'));
 
 /// This quoting is used for url path components.
 ///
@@ -11,7 +11,7 @@ pub static SIMPLE_QUOTING: &Quoting = CONTROLS;
 /// inequality qualifiers (<), (>), backtick (`), question mark (?), and curly brackets ({), (}) are
 /// encoded.
 #[no_mangle]
-pub static DEFAULT_QUOTING: &Quoting = &CONTROLS
+pub static DEFAULT_QUOTING: &Quoting = &SIMPLE_QUOTING
     .add(b' ')
     .add(b'"')
     .add(b'#')
@@ -27,7 +27,12 @@ pub static DEFAULT_QUOTING: &Quoting = &CONTROLS
 ///
 /// Aside from special chacters defined in the `SIMPLE_QUOTING`, space, double quote ("), hash (#),
 /// and inequality qualifiers (<), (>) are encoded.
-pub static QUERY_QUOTING: &Quoting = &CONTROLS.add(b' ').add(b'"').add(b'#').add(b'<').add(b'>');
+pub static QUERY_QUOTING: &Quoting = &SIMPLE_QUOTING
+    .add(b' ')
+    .add(b'"')
+    .add(b'#')
+    .add(b'<')
+    .add(b'>');
 
 /// This quoting is used for on '/'-separated path segment
 ///
@@ -35,7 +40,7 @@ pub static QUERY_QUOTING: &Quoting = &CONTROLS.add(b' ').add(b'"').add(b'#').add
 /// inequality qualifiers (<), (>), backtick (`), question mark (?), and curly brackets ({), (}),
 /// percent sign (%), forward slash (/) are encoded.
 #[no_mangle]
-pub static PATH_SEGMENT_QUOTING: &Quoting = &CONTROLS
+pub static PATH_SEGMENT_QUOTING: &Quoting = &SIMPLE_QUOTING
     .add(b' ')
     .add(b'"')
     .add(b'#')
@@ -55,7 +60,7 @@ pub static PATH_SEGMENT_QUOTING: &Quoting = &CONTROLS
 /// forward slash (/), colon (:), semi-colon (;), equality (=), at (@), backslash (\\), square
 /// brackets ([), (]), caret (\^), and pipe (|) are encoded.
 #[no_mangle]
-pub static USERINFO_QUOTING: &Quoting = &CONTROLS
+pub static USERINFO_QUOTING: &Quoting = &SIMPLE_QUOTING
     .add(b' ')
     .add(b'"')
     .add(b'#')
@@ -101,16 +106,22 @@ pub static PYTHON_3_7_QUOTING: &Quoting = &DEFAULT_QUOTING
 
 // This is an opaque public strict type alias in order to avoid talking about
 // `&'static AsciiSet` in the C-Interface
-pub type Quoting = AsciiSet;
+pub struct Quoting(pub AsciiSet);
+
+impl Quoting {
+    const fn add(&self, byte: u8) -> Self {
+        Quoting(self.0.add(byte))
+    }
+}
 
 pub trait Quote {
     fn quote(&self, input: &[u8], output: &mut [u8]) -> usize;
 }
 
-impl Quote for &'static AsciiSet {
+impl Quote for &'static Quoting {
     fn quote(&self, input: &[u8], output: &mut [u8]) -> usize {
         let mut index = 0;
-        let mut quoted_bytes = percent_encode(input, self).flat_map(str::bytes);
+        let mut quoted_bytes = percent_encode(input, &self.0).flat_map(str::bytes);
 
         for byte in (&mut quoted_bytes).take(output.len()) {
             output[index] = byte;

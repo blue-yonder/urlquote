@@ -1,4 +1,4 @@
-from urlquote._native import lib
+from urlquote.urlquote import lib
 
 # All ASCII charcters less than hexidecimal 20 and greater than 7E are encoded.  This includes
 # special charcters such as line feed, carriage return, NULL, etc.

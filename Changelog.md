@@ -1,6 +1,16 @@
 Changelog
 =========
 
+2.0.0
+-----
+
+* Dropped support for Python 2
+* Lost dependency to six
+* Switched build system to maturin
+* Stopped vendoring `percent-encoding`
+* Switched to Rust edition 2021
+* Removed benches
+
 1.1.4
 -----
 

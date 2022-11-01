@@ -107,7 +107,7 @@ mod tests {
     #[test]
     fn quoting_works() {
         assert_eq!(
-            utf8_percent_encode("/El Niño/", DEFAULT_QUOTING).to_string(),
+            utf8_percent_encode("/El Niño/", &DEFAULT_QUOTING.0).to_string(),
             "/El%20Ni%C3%B1o/"
         );
 
@@ -138,7 +138,7 @@ mod tests {
     #[test]
     fn unquoting_works() {
         assert_eq!(
-            utf8_percent_encode("/El Niño/", DEFAULT_QUOTING).to_string(),
+            utf8_percent_encode("/El Niño/", &DEFAULT_QUOTING.0).to_string(),
             "/El%20Ni%C3%B1o/"
         );
 
