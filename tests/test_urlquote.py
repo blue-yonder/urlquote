@@ -7,26 +7,26 @@ import sys
 
 
 def test_quote_bytes():
-    expected = u"/El%20Ni%C3%B1o/".encode("utf-8")
-    actual = quote(u"/El Niño/".encode("utf-8"))
+    expected = "/El%20Ni%C3%B1o/".encode("utf-8")
+    actual = quote("/El Niño/".encode("utf-8"))
     assert expected == actual
 
 
 def test_unquote_bytes():
-    expected = u"/El Niño/".encode("utf-8")
-    actual = unquote(u"/El%20Ni%C3%B1o/".encode("utf-8"))
+    expected = "/El Niño/".encode("utf-8")
+    actual = unquote("/El%20Ni%C3%B1o/".encode("utf-8"))
     assert expected == actual
 
 
 def test_quote_string():
-    expected = u"/El%20Ni%C3%B1o/".encode("utf-8")
-    actual = quote(u"/El Niño/")
+    expected = "/El%20Ni%C3%B1o/".encode("utf-8")
+    actual = quote("/El Niño/")
     assert expected == actual
 
 
 def test_unquote_string():
-    expected = u"/El Niño/".encode("utf-8")
-    actual = unquote(u"/El%20Ni%C3%B1o/")
+    expected = "/El Niño/".encode("utf-8")
+    actual = unquote("/El%20Ni%C3%B1o/")
     assert expected == actual
 
 
@@ -34,16 +34,18 @@ def test_unquote_string_with_buffer_reallocation():
     # Make sure buffer is NOT big enough to hold unquoted string
     urlquote.buffer = urlquote.urlquote.ffi.new("uint8_t[]", 1)
 
-    expected = u"/El Niño/".encode("utf-8")
-    actual = unquote(u"/El%20Ni%C3%B1o/")
+    expected = "/El Niño/".encode("utf-8")
+    actual = unquote("/El%20Ni%C3%B1o/")
     assert expected == actual
+
 
 def test_threading():
     from concurrent.futures import ThreadPoolExecutor, wait
-    expected = u"/El Niño/".encode("utf-8")
+
+    expected = "/El Niño/".encode("utf-8")
 
     def foo():
-        return unquote(u"/El%20Ni%C3%B1o/")
+        return unquote("/El%20Ni%C3%B1o/")
 
     with ThreadPoolExecutor() as exc:
         future = exc.submit(foo)
