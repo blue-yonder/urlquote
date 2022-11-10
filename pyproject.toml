@@ -7,7 +7,7 @@ name = "urlquote"
 authors = [{name = "Blue Yonder", email = "oss@blue-yonder.com"}]
 description='Fast quoting and unquoting of urls.'
 readme = "README.md"
-version = "2.0.0"
+version = "2.0.0.post1"
 dependencies = ["cffi"]
 
 [project.license]
@@ -18,7 +18,7 @@ test = ["pytest < 8.0.0"]
 
 [project.urls]
 repository = "https://github.com/blue-yonder/urlquote"
-changelog = "https://github.com/blue-yonder/urlquote/main/Changelog.md"
+changelog = "https://github.com/blue-yonder/urlquote/blob/master/Changelog.md"
 
 [tool.maturin]
 # Bindings type
