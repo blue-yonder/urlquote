@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.1.0
+-----
+
+* Update to `maturin>=1,<2`
+* Test with Python 3.12
+
 2.0.0
 -----
 

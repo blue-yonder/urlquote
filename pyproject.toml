@@ -1,5 +1,5 @@
 [build-system]
-requires = ["cffi", "maturin>=0.13,<0.14"]
+requires = ["cffi", "maturin>=1.0,<2.0"]
 build-backend = "maturin"
 
 [project]
@@ -7,7 +7,7 @@ name = "urlquote"
 authors = [{name = "Blue Yonder", email = "oss@blue-yonder.com"}]
 description='Fast quoting and unquoting of urls.'
 readme = "README.md"
-version = "2.0.0"
+version = "2.1.0"
 dependencies = ["cffi"]
 
 [project.license]
