@@ -6,7 +6,7 @@ publish = false
 edition = "2021"
 
 [lib]
-crate-type = ['cdylib']
+crate-type = ['cdylib', 'lib']
 
 [dependencies]
 percent-encoding = "2.1.0"
@@ -16,3 +16,6 @@ percent-encoding = "2.1.0"
 panic = 'abort'
 # Link time Optimization
 lto = true
+
+[dev-dependencies]
+criterion = "0.6.0"

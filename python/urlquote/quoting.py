@@ -37,3 +37,9 @@ USERINFO_QUOTING = lib.USERINFO_QUOTING
 # Quotes everything but alphanumeric letters, numbers and dash (-), underscore (_), slash (/),
 # point (.) and tilde (~).
 PYTHON_3_7_QUOTING = lib.PYTHON_3_7_QUOTING
+
+# This quoting is identical to PYTHON_3_7_QUOTING with idempotency
+#
+# Quotes everything but alphanumeric letters, numbers and dash (-), underscore (_), slash (/),
+# point (.), tilde (~), and percent sign (%).
+PYTHON_3_7_IDEMPOTENT_QUOTING = lib.PYTHON_3_7_IDEMPOTENT_QUOTING
