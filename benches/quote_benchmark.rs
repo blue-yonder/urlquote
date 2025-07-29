@@ -1,6 +1,6 @@
 use criterion::{criterion_group, criterion_main, Criterion};
 use std::hint::black_box;
-use urlquote::{PYTHON_3_7_IDEMPOTENT_QUOTING, PYTHON_3_7_QUOTING};
+use urlquote::{IDEMPOTENT_QUOTING, PYTHON_3_7_QUOTING};
 
 fn python_quote_benchmark(c: &mut Criterion) {
     let mut group = c.benchmark_group("URL Quoting");
@@ -27,7 +27,7 @@ fn python_quote_benchmark(c: &mut Criterion) {
                 black_box(encoded.len()),
                 black_box(buf.as_mut_ptr()),
                 black_box(buf.len()),
-                black_box(PYTHON_3_7_IDEMPOTENT_QUOTING),
+                black_box(IDEMPOTENT_QUOTING),
             )
         })
     });
@@ -54,7 +54,7 @@ fn python_quote_benchmark(c: &mut Criterion) {
                 black_box(unencoded.len()),
                 black_box(buf.as_mut_ptr()),
                 black_box(buf.len()),
-                black_box(PYTHON_3_7_IDEMPOTENT_QUOTING),
+                black_box(IDEMPOTENT_QUOTING),
             )
         })
     });
@@ -81,7 +81,7 @@ fn python_quote_benchmark(c: &mut Criterion) {
                 black_box(mixed.len()),
                 black_box(buf.as_mut_ptr()),
                 black_box(buf.len()),
-                black_box(PYTHON_3_7_IDEMPOTENT_QUOTING),
+                black_box(IDEMPOTENT_QUOTING),
             )
         })
     });
@@ -108,7 +108,7 @@ fn python_quote_benchmark(c: &mut Criterion) {
                 black_box(large.len()),
                 black_box(buf.as_mut_ptr()),
                 black_box(buf.len()),
-                black_box(PYTHON_3_7_IDEMPOTENT_QUOTING),
+                black_box(IDEMPOTENT_QUOTING),
             )
         })
     });

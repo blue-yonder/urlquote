@@ -106,7 +106,7 @@ pub static PYTHON_3_7_QUOTING: &Quoting = &DEFAULT_QUOTING
 
 /// This emulates the urllib default encoding used by Python 3.7 without quoting %
 #[no_mangle]
-pub static PYTHON_3_7_IDEMPOTENT_QUOTING: &Quoting = &PYTHON_3_7_QUOTING.remove(b'%');
+pub static IDEMPOTENT_QUOTING: &Quoting = &PYTHON_3_7_QUOTING.remove(b'%');
 
 // This is an opaque public strict type alias in order to avoid talking about
 // `&'static AsciiSet` in the C-Interface
