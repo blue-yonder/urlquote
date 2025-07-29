@@ -5,7 +5,7 @@ use std::slice;
 mod quoting;
 
 pub use quoting::{
-    DEFAULT_QUOTING, PATH_SEGMENT_QUOTING, PYTHON_3_7_IDEMPOTENT_QUOTING, PYTHON_3_7_QUOTING,
+    DEFAULT_QUOTING, PATH_SEGMENT_QUOTING, IDEMPOTENT_QUOTING, PYTHON_3_7_QUOTING,
     QUERY_QUOTING, SIMPLE_QUOTING, USERINFO_QUOTING,
 };
 
@@ -163,7 +163,7 @@ mod tests {
                 original.len(),
                 buf.as_mut_ptr(),
                 buf.len(),
-                PYTHON_3_7_IDEMPOTENT_QUOTING,
+                IDEMPOTENT_QUOTING,
             );
             String::from_utf8(buf[..len].to_vec()).unwrap()
         };
@@ -183,7 +183,7 @@ mod tests {
                 quoted.len(),
                 buf.as_mut_ptr(),
                 buf.len(),
-                PYTHON_3_7_IDEMPOTENT_QUOTING,
+                IDEMPOTENT_QUOTING,
             );
             String::from_utf8(buf[..len].to_vec()).unwrap()
         };
@@ -203,7 +203,7 @@ mod tests {
                 mixed.len(),
                 buf.as_mut_ptr(),
                 buf.len(),
-                PYTHON_3_7_IDEMPOTENT_QUOTING,
+                IDEMPOTENT_QUOTING,
             );
             String::from_utf8(buf[..len].to_vec()).unwrap()
         };
@@ -223,7 +223,7 @@ mod tests {
                 special.len(),
                 buf.as_mut_ptr(),
                 buf.len(),
-                PYTHON_3_7_IDEMPOTENT_QUOTING,
+                IDEMPOTENT_QUOTING,
             );
             String::from_utf8(buf[..len].to_vec()).unwrap()
         };

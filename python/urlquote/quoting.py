@@ -42,4 +42,4 @@ PYTHON_3_7_QUOTING = lib.PYTHON_3_7_QUOTING
 #
 # Quotes everything but alphanumeric letters, numbers and dash (-), underscore (_), slash (/),
 # point (.), tilde (~), and percent sign (%).
-PYTHON_3_7_IDEMPOTENT_QUOTING = lib.PYTHON_3_7_IDEMPOTENT_QUOTING
+IDEMPOTENT_QUOTING = lib.IDEMPOTENT_QUOTING

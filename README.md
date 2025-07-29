@@ -42,9 +42,9 @@ The following encodings are offered. `DEFAULT_QUOTING` is used in case the quoti
 | PATH_SEGMENT_QUOTING | space, `"`,`#`,`<`,`>`,`` ` ``,`?`,`%`,`/`                                                                          |
 | USERINFO_QUOTING     | space, `"`,`#`,`<`,`>`,`` ` ``,`?`,`{`,`}`,`/`,`:`,`;`,`=`,`@`,`\`,`[`,`]`,`^`,`\|`                                 |
 | PYTHON_3_7_QUOTING   | space, `"`,`#`,`<`,`>`,`` ` ``,`?`,`{`,`}`,`$`,`%`,`&`,`\`,`(`,`)`,`,`,`=`,`;`,`:`,`!`,`@`,`[`,`]`,`^`,`\|`,`+`,`*` |
-| PYTHON_3_7_IDEMPOTENT_QUOTING   | space, `"`,`#`,`<`,`>`,`` ` ``,`?`,`{`,`}`,`$`,`&`,`\`,`(`,`)`,`,`,`=`,`;`,`:`,`!`,`@`,`[`,`]`,`^`,`\|`,`+`,`*` |
+| IDEMPOTENT_QUOTING   | space, `"`,`#`,`<`,`>`,`` ` ``,`?`,`{`,`}`,`$`,`&`,`\`,`(`,`)`,`,`,`=`,`;`,`:`,`!`,`@`,`[`,`]`,`^`,`\|`,`+`,`*` |
 
-Non printable and non standard ASCII characters are always quoted. The `PYTHON_3_7_QUOTING` is going to work the same way in every Python version the name is only refering to the `urllib` default encoding used in Python 3.7. `PYTHON_3_7_IDEMPOTENT_QUOTING` is the same as `PYTHON_3_7_QUOTING` but without `%` to provide idempotency.
+Non printable and non standard ASCII characters are always quoted. The `PYTHON_3_7_QUOTING` is going to work the same way in every Python version the name is only refering to the `urllib` default encoding used in Python 3.7. `IDEMPOTENT_QUOTING` is the same as `PYTHON_3_7_QUOTING` but without `%` to provide idempotency.
 
 Development
 -----------
