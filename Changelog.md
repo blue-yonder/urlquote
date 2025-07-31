@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.2.0
+-----
+
+* Add IDEMPOTENT_QUOTING for quoted string matching
+
 2.1.0
 -----
 

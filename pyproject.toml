@@ -7,7 +7,7 @@ name = "urlquote"
 authors = [{name = "Blue Yonder", email = "oss@blue-yonder.com"}]
 description='Fast quoting and unquoting of urls.'
 readme = "README.md"
-version = "2.1.0"
+version = "2.2.0"
 dependencies = ["cffi"]
 
 [project.license]
