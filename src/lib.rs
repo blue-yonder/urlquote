@@ -5,8 +5,8 @@ use std::slice;
 mod quoting;
 
 pub use quoting::{
-    DEFAULT_QUOTING, PATH_SEGMENT_QUOTING, PYTHON_3_7_QUOTING, QUERY_QUOTING, SIMPLE_QUOTING,
-    USERINFO_QUOTING,
+    DEFAULT_QUOTING, PATH_SEGMENT_QUOTING, IDEMPOTENT_QUOTING, PYTHON_3_7_QUOTING,
+    QUERY_QUOTING, SIMPLE_QUOTING, USERINFO_QUOTING,
 };
 
 /// Fill the provided output buffer with the quoted string.
@@ -152,5 +152,84 @@ mod tests {
             let unquoted = String::from_utf8(buf).unwrap();
             assert_eq!(unquoted, "/El Niño/");
         }
+    }
+    #[test]
+    fn test_already_percent_encoded() {
+        let original = "hello%20world";
+        let quoted = unsafe {
+            let mut buf = vec![0; 100];
+            let len = quote(
+                original.as_ptr(),
+                original.len(),
+                buf.as_mut_ptr(),
+                buf.len(),
+                IDEMPOTENT_QUOTING,
+            );
+            String::from_utf8(buf[..len].to_vec()).unwrap()
+        };
+        assert_eq!(
+            quoted, "hello%20world",
+            "Should preserve existing percent-encoding"
+        );
+    }
+
+    #[test]
+    fn test_double_pass_stability() {
+        let quoted = "hello%20world";
+        let double_quoted = unsafe {
+            let mut buf = vec![0; 100];
+            let len = quote(
+                quoted.as_ptr(),
+                quoted.len(),
+                buf.as_mut_ptr(),
+                buf.len(),
+                IDEMPOTENT_QUOTING,
+            );
+            String::from_utf8(buf[..len].to_vec()).unwrap()
+        };
+        assert_eq!(
+            double_quoted, quoted,
+            "Second pass should be identical to first"
+        );
+    }
+
+    #[test]
+    fn test_mixed_content() {
+        let mixed = "hello%20world & goodbye space";
+        let quoted_mixed = unsafe {
+            let mut buf = vec![0; 100];
+            let len = quote(
+                mixed.as_ptr(),
+                mixed.len(),
+                buf.as_mut_ptr(),
+                buf.len(),
+                IDEMPOTENT_QUOTING,
+            );
+            String::from_utf8(buf[..len].to_vec()).unwrap()
+        };
+        assert_eq!(
+            quoted_mixed, "hello%20world%20%26%20goodbye%20space",
+            "Should preserve existing encoding while encoding new special chars"
+        );
+    }
+
+    #[test]
+    fn test_special_characters() {
+        let special = "hello world < > \"";
+        let quoted_special = unsafe {
+            let mut buf = vec![0; 100];
+            let len = quote(
+                special.as_ptr(),
+                special.len(),
+                buf.as_mut_ptr(),
+                buf.len(),
+                IDEMPOTENT_QUOTING,
+            );
+            String::from_utf8(buf[..len].to_vec()).unwrap()
+        };
+        assert_eq!(
+            quoted_special, "hello%20world%20%3C%20%3E%20%22",
+            "Should encode all special characters"
+        );
     }
 }

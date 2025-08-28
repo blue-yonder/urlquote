@@ -104,6 +104,10 @@ pub static PYTHON_3_7_QUOTING: &Quoting = &DEFAULT_QUOTING
     .add(b'+')
     .add(b'*');
 
+/// This emulates the urllib default encoding used by Python 3.7 without quoting %
+#[no_mangle]
+pub static IDEMPOTENT_QUOTING: &Quoting = &PYTHON_3_7_QUOTING.remove(b'%');
+
 // This is an opaque public strict type alias in order to avoid talking about
 // `&'static AsciiSet` in the C-Interface
 pub struct Quoting(pub AsciiSet);
@@ -111,6 +115,9 @@ pub struct Quoting(pub AsciiSet);
 impl Quoting {
     const fn add(&self, byte: u8) -> Self {
         Quoting(self.0.add(byte))
+    }
+    const fn remove(&self, byte: u8) -> Self {
+        Quoting(self.0.remove(byte))
     }
 }
 

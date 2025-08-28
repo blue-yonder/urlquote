@@ -16,6 +16,3 @@ percent-encoding = "2.1.0"
 panic = 'abort'
 # Link time Optimization
 lto = true
-
-[package.metadata.maturin]
-python-source = "python" 
